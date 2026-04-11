@@ -3,575 +3,1299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OlivIA Gerador v4 — Showcase</title>
+<title>OlivIA + MdOs — Apresentação Completa</title>
 <style>
 :root {
-  --bg:#0a0a0f; --surface:#12121a; --card:#1a1a2e; --card-hover:#1f1f38;
-  --border:#2a2a4a; --border-light:#3a3a5a;
-  --primary:#20c997; --primary-dim:rgba(32,201,151,0.12);
-  --accent:#7c3aed; --accent-dim:rgba(124,58,237,0.12);
-  --warning:#f59e0b; --warning-dim:rgba(245,158,11,0.12);
-  --error:#ef4444; --blue:#5bc4f5; --blue-dim:rgba(91,196,245,0.12);
-  --pink:#ec4899; --orange:#f97316;
-  --text:#e8eaf6; --text-muted:#7a82a8; --text-dim:#4a5278;
-  --glass:rgba(26,26,46,0.85);
+  --bg: #0a0a0f;
+  --bg-card: #111118;
+  --bg-surface: #16161f;
+  --primary: #20c997;
+  --primary-dim: rgba(32, 201, 151, 0.15);
+  --accent: #7c3aed;
+  --accent-dim: rgba(124, 58, 237, 0.15);
+  --gold: #f59e0b;
+  --gold-dim: rgba(245, 158, 11, 0.12);
+  --pink: #ec4899;
+  --pink-dim: rgba(236, 72, 153, 0.12);
+  --blue: #3b82f6;
+  --blue-dim: rgba(59, 130, 246, 0.12);
+  --text: #e8e4df;
+  --text-muted: #9ca3af;
+  --border: rgba(255,255,255,0.08);
+  --radius: 16px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Manrope', var(--font);
+  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
 }
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);font-size:0.9rem;line-height:1.7;min-height:100vh}
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-/* Animations */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--primary-dim) 0%, transparent 70%);
+  top: -100px; right: -200px;
+  animation: pulse 8s ease-in-out infinite;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--accent-dim) 0%, transparent 70%);
+  bottom: -150px; left: -150px;
+  animation: pulse 10s ease-in-out infinite reverse;
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.15); }
+}
+.hero-content { position: relative; z-index: 2; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+.hero .subtitle {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 32px;
+}
+.hero .for-who {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-dim);
+  border: 1px solid rgba(32,201,151,0.3);
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
 
-/* Hero */
-.hero{text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(32,201,151,0.06) 0%,transparent 60%);animation:pulse 8s infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:0.6}50%{transform:scale(1.1);opacity:1}}
-.hero-badge{display:inline-flex;gap:8px;margin-bottom:20px}
-.hero-badge span{padding:4px 14px;border-radius:20px;font-size:0.72rem;font-weight:700}
-.hero h1{font-family:'Manrope',sans-serif;font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,var(--primary) 0%,var(--blue) 50%,var(--accent) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px;line-height:1.2}
-.hero p{font-size:1rem;color:var(--text-muted);max-width:650px;margin:0 auto}
-.hero-sub{font-size:0.8rem;color:var(--text-dim);margin-top:16px}
+/* ===== SECTIONS ===== */
+section { padding: 80px 0; }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--primary);
+  margin-bottom: 16px;
+  padding: 6px 14px;
+  background: var(--primary-dim);
+  border-radius: 100px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.section-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 750px;
+  margin-bottom: 40px;
+}
 
-/* Section headers */
-.section{padding:60px 0}
-.section-header{text-align:center;margin-bottom:40px}
-.section-header h2{font-family:'Manrope',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:8px}
-.section-header p{color:var(--text-muted);font-size:0.85rem}
-.section-label{font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--primary);margin-bottom:8px}
+/* ===== CARDS ===== */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: rgba(32,201,151,0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(32,201,151,0.08);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.card p { color: var(--text-muted); font-size: 0.95rem; }
 
-/* KPI Cards */
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-bottom:40px}
-.kpi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 20px;text-align:center;transition:transform 0.3s,border-color 0.3s}
-.kpi:hover{transform:translateY(-4px);border-color:var(--primary)}
-.kpi-icon{font-size:2rem;margin-bottom:8px}
-.kpi-num{font-family:'Manrope',sans-serif;font-size:2rem;font-weight:900}
-.kpi-label{font-size:0.75rem;color:var(--text-muted);margin-top:4px}
+/* ===== PIPELINE VISUAL ===== */
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 40px 0;
+}
+@media (max-width: 768px) {
+  .pipeline { grid-template-columns: 1fr; }
+}
+.pipeline-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+}
+.pipeline-step::after {
+  content: '→';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--primary);
+}
+.pipeline-step:last-child::after { display: none; }
+@media (max-width: 768px) {
+  .pipeline-step::after {
+    content: '↓';
+    right: auto;
+    bottom: -20px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.step-number {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.pipeline-step h4 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.pipeline-step p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
 
-/* Pipeline */
-.pipeline{display:flex;align-items:stretch;gap:0;margin:40px 0;flex-wrap:wrap;justify-content:center}
-.pipe-step{flex:1;min-width:200px;max-width:260px;position:relative;padding:24px 20px;background:var(--card);border:1px solid var(--border);border-radius:14px;text-align:center;margin:8px}
-.pipe-step::after{content:'→';position:absolute;right:-16px;top:50%;transform:translateY(-50%);color:var(--primary);font-size:1.5rem;font-weight:700}
-.pipe-step:last-child::after{display:none}
-.pipe-num{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:0.85rem;color:#fff;margin-bottom:10px}
-.pipe-step h3{font-family:'Manrope',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:6px}
-.pipe-step p{font-size:0.76rem;color:var(--text-muted)}
+/* ===== VAULT / BRAIN ===== */
+.brain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } }
+.brain-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.brain-item h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brain-item p { font-size: 0.9rem; color: var(--text-muted); }
+.brain-item .emoji { font-size: 1.4rem; }
 
-/* Detail cards */
-.detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-.detail-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;transition:border-color 0.3s}
-.detail-card:hover{border-color:var(--border-light)}
-.detail-card h3{font-family:'Manrope',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.detail-card ul{list-style:none;padding:0}
-.detail-card li{font-size:0.8rem;color:var(--text-muted);padding:4px 0;padding-left:16px;position:relative}
-.detail-card li::before{content:'→';position:absolute;left:0;color:var(--primary);font-weight:700}
+/* ===== LEARNING CYCLE ===== */
+.cycle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  flex-wrap: wrap;
+  margin: 40px 0;
+}
+.cycle-node {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 20px;
+  text-align: center;
+  min-width: 160px;
+}
+.cycle-node h4 { font-size: 0.9rem; margin-bottom: 4px; }
+.cycle-node p { font-size: 0.8rem; color: var(--text-muted); }
+.cycle-arrow {
+  font-size: 1.5rem;
+  color: var(--primary);
+  padding: 0 8px;
+}
 
-/* Scoring bar */
-.score-bar{display:flex;border-radius:8px;overflow:hidden;height:32px;margin:16px 0}
-.score-bar div{display:flex;align-items:center;justify-content:center;font-size:0.68rem;font-weight:700;color:#fff}
+/* ===== MDOS SECTION ===== */
+.command-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 0.9rem;
+}
+.command-table th {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.command-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.command-table tr:hover { background: rgba(255,255,255,0.02); }
+.cmd {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background: var(--primary-dim);
+  color: var(--primary);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
 
-/* Compare */
-.compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:40px 0}
-.compare-col{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px}
-.compare-col h3{font-family:'Manrope',sans-serif;font-size:1rem;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.compare-col ul{list-style:none;padding:0}
-.compare-col li{font-size:0.82rem;color:var(--text-muted);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
-.compare-col li:last-child{border-bottom:none}
-.compare-col li strong{color:var(--text)}
+/* ===== NETWORK DIAGRAM ===== */
+.network-visual {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  text-align: center;
+  margin: 32px 0;
+  overflow-x: auto;
+}
+.network-visual pre {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: var(--text);
+  display: inline-block;
+  text-align: left;
+}
+.network-visual .highlight { color: var(--primary); font-weight: 600; }
+.network-visual .accent-text { color: var(--accent); }
+.network-visual .gold-text { color: var(--gold); }
 
-/* ROI highlight */
-.roi-highlight{background:linear-gradient(135deg,rgba(32,201,151,0.08),rgba(124,58,237,0.08));border:2px solid rgba(32,201,151,0.3);border-radius:20px;padding:40px;text-align:center;margin:40px 0}
-.roi-highlight .roi-num{font-family:'Manrope',sans-serif;font-size:4rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.roi-highlight p{color:var(--text-muted);font-size:0.85rem;margin-top:8px;max-width:500px;margin-left:auto;margin-right:auto}
+/* ===== ARCHITECTURE SECTION ===== */
+.arch-layer {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.arch-layer .layer-badge {
+  min-width: 80px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.arch-layer h4 { font-size: 1rem; margin-bottom: 6px; }
+.arch-layer p { font-size: 0.9rem; color: var(--text-muted); }
 
-/* Timeline */
-.timeline{position:relative;margin:40px 0;padding-left:40px}
-.timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--primary),var(--accent))}
-.tl-item{position:relative;margin-bottom:32px}
-.tl-item::before{content:'';position:absolute;left:-32px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--primary);border:3px solid var(--bg)}
-.tl-item h4{font-family:'Manrope',sans-serif;font-size:0.88rem;font-weight:700;margin-bottom:4px}
-.tl-item p{font-size:0.8rem;color:var(--text-muted)}
+/* ===== FEATURE LIST ===== */
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+.feature-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-check {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 
-/* Opinion card */
-.opinion{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin:20px 0;position:relative}
-.opinion::before{content:'"';position:absolute;top:16px;left:24px;font-size:4rem;color:var(--primary);opacity:0.2;font-family:serif}
-.opinion h3{font-family:'Manrope',sans-serif;font-size:1rem;font-weight:700;margin-bottom:12px}
-.opinion p{font-size:0.84rem;color:var(--text-muted);line-height:1.8}
+/* ===== HIGHLIGHT BOX ===== */
+.highlight-box {
+  background: linear-gradient(135deg, var(--primary-dim), var(--accent-dim));
+  border: 1px solid rgba(32,201,151,0.2);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin: 32px 0;
+}
+.highlight-box h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+.highlight-box p { color: var(--text-muted); }
 
-/* Roadmap */
-.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.road-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;display:flex;gap:12px;align-items:flex-start}
-.road-item .road-icon{font-size:1.2rem;min-width:28px;text-align:center}
-.road-item h4{font-size:0.82rem;font-weight:700;margin-bottom:2px}
-.road-item p{font-size:0.73rem;color:var(--text-muted)}
+/* ===== TABS ===== */
+.tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+.tab.active, .tab:hover {
+  background: var(--primary-dim);
+  border-color: rgba(32,201,151,0.3);
+  color: var(--primary);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 
-/* Tech specs */
-.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.tech-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.tech-item .tech-label{font-size:0.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.05em}
-.tech-item .tech-value{font-family:'JetBrains Mono',monospace;font-size:0.78rem;color:var(--primary);margin-top:2px}
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 60px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+.footer .logo-text {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
 
-/* Footer */
-.footer{text-align:center;padding:48px 24px;color:var(--text-dim);font-size:0.72rem;border-top:1px solid var(--border);margin-top:60px}
+/* ===== ANIMATIONS ===== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-@media(max-width:768px){
-  .hero h1{font-size:1.8rem}
-  .compare{grid-template-columns:1fr}
-  .pipeline{flex-direction:column;align-items:center}
-  .pipe-step::after{display:none}
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+/* ===== SEPARATOR ===== */
+.sep {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 0;
 }
 </style>
 </head>
 <body>
 
-<!-- ═══ HERO ═══ -->
-<div class="hero">
-<div class="container">
-<div class="hero-badge">
-  <span style="background:var(--primary-dim);color:var(--primary)">54 tasks concluidas</span>
-  <span style="background:var(--accent-dim);color:var(--accent)">7 waves</span>
-  <span style="background:var(--warning-dim);color:var(--warning)">Producao</span>
-</div>
-<h1>OlivIA Gerador v4</h1>
-<p>A fabrica de peticoes que transforma 4 horas de trabalho manual em 3 minutos de geracao inteligente. Construida em 54 tasks cirurgicas. Funcional. Em producao.</p>
-<p class="hero-sub">Apresentado por Jarbas 2.0 — CTO Digital da MDX LegalTech</p>
-</div>
-</div>
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="for-who">💜 Apresentação exclusiva para Heloísa</div>
+    <h1 style="margin-top:24px">OlivIA + MdOs</h1>
+    <p class="subtitle">O sistema completo que gera petições, aprende com cada caso, e opera conectado entre nossos 3 computadores — tudo pelo mesmo cérebro.</p>
+    <p style="color:var(--text-muted); font-size:0.9rem; margin-top:16px;">Apresentado por Jarbas 2.0 — 11 de abril de 2026</p>
+  </div>
+  <div class="scroll-hint">↓ Rolar para explorar</div>
+</section>
 
-<div class="container">
+<div class="sep"></div>
 
-<!-- ═══ KPIs ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Impacto em numeros</div>
-  <h2>O que voce construiu, Christian</h2>
-</div>
-<div class="kpi-grid">
-  <div class="kpi">
-    <div class="kpi-icon">⚡</div>
-    <div class="kpi-num" style="color:var(--primary)">~3 min</div>
-    <div class="kpi-label">Tempo de geracao por peticao</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-icon">📈</div>
-    <div class="kpi-num" style="color:var(--blue)">5-7x</div>
-    <div class="kpi-label">Aumento de produtividade</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-icon">📄</div>
-    <div class="kpi-num" style="color:var(--accent)">440+</div>
-    <div class="kpi-label">Peticoes possiveis/mes</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-icon">⚖️</div>
-    <div class="kpi-num" style="color:var(--warning)">1.353</div>
-    <div class="kpi-label">Jurisprudencias indexadas</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-icon">💰</div>
-    <div class="kpi-num" style="color:var(--primary)">12-30x</div>
-    <div class="kpi-label">ROI vs custo operacional</div>
-  </div>
-</div>
-</div>
+<!-- ===== O QUE É ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🧠 Visão Geral</span>
+    <h2 class="section-title">O que é a OlivIA?</h2>
+    <p class="section-desc">A OlivIA é uma advogada artificial que lê documentos, analisa provas, seleciona jurisprudências e redige petições completas — do zero até o documento final formatado. Ela tem memória própria, aprende com cada caso, e melhora sozinha ao longo do tempo.</p>
 
-<!-- ═══ PIPELINE VISUAL ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Como funciona</div>
-  <h2>4 Steps — Do processo a peticao pronta</h2>
-  <p>Pipeline pull-based: Frontend → Edge Function → Mac Mini M4 → Claude Opus 4.6 → PDF</p>
-</div>
-<div class="pipeline">
-  <div class="pipe-step">
-    <div class="pipe-num" style="background:var(--primary)">1</div>
-    <h3>Identificacao</h3>
-    <p>Seleciona processo, detecta advogado, carrega dados automaticamente</p>
-  </div>
-  <div class="pipe-step">
-    <div class="pipe-num" style="background:var(--accent)">2</div>
-    <h3>Analise de Provas</h3>
-    <p>IA analisa restricoes, contestacao, datas. Gera perguntas se incompleto</p>
-  </div>
-  <div class="pipe-step">
-    <div class="pipe-num" style="background:var(--warning)">3</div>
-    <h3>Geracao</h3>
-    <p>Smart Juris seleciona juris. Gera peticao formatada ABNT com VibeLaw</p>
-  </div>
-  <div class="pipe-step">
-    <div class="pipe-num" style="background:var(--blue)">4</div>
-    <h3>Conclusao + Aprendizado</h3>
-    <p>Revisao, score, PDF/DOCX. Se nota ≥8.5: sistema aprende automaticamente</p>
-  </div>
-</div>
-</div>
-
-<!-- ═══ DETALHAMENTO POR STEP ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Profundidade</div>
-  <h2>O que a IA faz em cada etapa</h2>
-  <p>Nao e um chatbot simples. E um pipeline de 6 modulos especializados.</p>
-</div>
-<div class="detail-grid">
-  <div class="detail-card">
-    <h3>🔍 Step 1 — Identificacao Express</h3>
-    <ul>
-      <li>Detecta advogado logado automaticamente (race condition fix)</li>
-      <li>Carrega processo com todos os dados do Supabase</li>
-      <li>Preenche empresa, restricoes, tipo de peticao</li>
-      <li>Botao bloqueado ate dados carregarem (zero nulls)</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>🧠 Step 2 — Analise de Provas</h3>
-    <ul>
-      <li>Injeta restricoes da tabela (valor, codigo, data, empresa)</li>
-      <li>Cruza datas da contestacao da re (Heloisa feedback)</li>
-      <li>Se dados incompletos → gera perguntas inteligentes (5 tipos JSON)</li>
-      <li>Relatorio focado em pontos ESPECIFICOS (nunca artigos CDC genericos)</li>
-      <li>Relatorio fire-and-forget (nao bloqueia transicao)</li>
-      <li>Template hibrido: base + especifico por tipo peticao</li>
-      <li>Versao condensada 1-pagina para juiz</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>✍️ Step 3 — Geracao da Peticao</h3>
-    <ul>
-      <li>Detecta simples vs complexo automaticamente (D06)</li>
-      <li>Smart Juris v2: scoring composto (estado+categoria+valor+RAG)</li>
-      <li>1.353 jurisprudencias com estado backfillado (RS/SC/SP)</li>
-      <li>Preenche qualificacao por sexo (fetch clientes.sexo)</li>
-      <li>formatarHTML(): recuo 2.5cm, ABNT, citacoes 4cm, negrito em dados</li>
-      <li>Modelo como INSPIRACAO (nunca copia literal)</li>
-      <li>Tags flexiveis: identifica topicos alem do modelo</li>
-      <li>VibeLaw chat com auto-scroll (RAF + MutationObserver)</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>🎓 Step 4 — Aprendizado Automatico</h3>
-    <ul>
-      <li>Score ≥ 8.5 → trigger MODO APRENDIZADO</li>
-      <li>Extrai: padroes empresa, tipo prova, pontos fortes/fracos</li>
-      <li>Auto-append memoria por empresa (banco-pan.md, etc.)</li>
-      <li>Hierarquia: empresa > categoria > GLOBAL</li>
-      <li>Feed jurimetria: dashboard qualidade por empresa</li>
-      <li>LearningIndicatorCard visual em tempo real</li>
-      <li>WeasyPrint PDF nativo no Mac Mini</li>
-    </ul>
-  </div>
-</div>
-</div>
-
-<!-- ═══ SMART JURIS V2 ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Diferencial</div>
-  <h2>Smart Juris Selector v2</h2>
-  <p>Nao escolhe jurisprudencia aleatoria. Usa scoring composto para selecionar as MELHORES para cada caso.</p>
-</div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:700px;margin:0 auto">
-  <p style="font-size:0.82rem;color:var(--text-muted);margin-bottom:16px">Composicao do score (RPC <code style="font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--primary)">fn_olivia_selecionar_juris_v2</code>):</p>
-  <div class="score-bar">
-    <div style="background:var(--primary);width:40%">Estado 40%</div>
-    <div style="background:var(--accent);width:30%">Categoria 30%</div>
-    <div style="background:var(--warning);width:20%">Valor 20%</div>
-    <div style="background:var(--blue);width:10%">RAG 10%</div>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px">
-    <div style="text-align:center"><div style="font-family:'Manrope',sans-serif;font-size:1.3rem;font-weight:800;color:var(--primary)">1.353</div><div style="font-size:0.7rem;color:var(--text-muted)">Jurisprudencias</div></div>
-    <div style="text-align:center"><div style="font-family:'Manrope',sans-serif;font-size:1.3rem;font-weight:800;color:var(--accent)">3 estados</div><div style="font-size:0.7rem;color:var(--text-muted)">RS / SC / SP</div></div>
-    <div style="text-align:center"><div style="font-family:'Manrope',sans-serif;font-size:1.3rem;font-weight:800;color:var(--warning)">100%</div><div style="font-size:0.7rem;color:var(--text-muted)">Estado backfillado</div></div>
-  </div>
-</div>
-</div>
-
-<!-- ═══ APRENDIZADO CONTINUO ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">O killer feature</div>
-  <h2>🧬 Fica mais inteligente a cada peticao</h2>
-  <p>Cada peticao aprovada com nota ≥ 8.5 treina o sistema. A qualidade sobe exponencialmente.</p>
-</div>
-<div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;max-width:750px;margin:0 auto">
-  <div style="display:flex;flex-direction:column;gap:16px">
-    <div style="display:flex;align-items:center;gap:16px">
-      <div style="width:40px;height:40px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">📄</div>
-      <div><strong style="font-size:0.82rem">Peticao gerada e aprovada (score ≥ 8.5)</strong><p style="font-size:0.74rem;color:var(--text-muted)">Trigger automatico — poller 60s detecta</p></div>
-    </div>
-    <div style="margin-left:20px;border-left:2px solid var(--primary);padding-left:20px">
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0">🧠</div>
-        <div><strong style="font-size:0.8rem">Super Agente extrai padroes</strong><p style="font-size:0.72rem;color:var(--text-muted)">padroes_empresa, tipo_prova_re, pontos_fortes, juris_eficazes</p></div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon" style="background:var(--primary-dim)">📄</div>
+        <h3>Geradora de Petições</h3>
+        <p>Produz réplicas, apelações, embargos e contestações completas a partir dos documentos do processo. Formatadas e prontas para protocolar.</p>
       </div>
-      <div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--warning);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0">💾</div>
-        <div><strong style="font-size:0.8rem">Append cirurgico na memoria da empresa</strong><p style="font-size:0.72rem;color:var(--text-muted)">banco-pan.md, santander.md, nubank.md...</p></div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--accent-dim)">🧠</div>
+        <h3>Cérebro Próprio (Vault)</h3>
+        <p>Possui personalidade, regras jurídicas, playbooks por empresa, memória de casos anteriores e catálogo de 1.353 jurisprudências indexadas.</p>
       </div>
-      <div style="display:flex;align-items:center;gap:16px">
-        <div style="width:32px;height:32px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0">📈</div>
-        <div><strong style="font-size:0.8rem">Proxima peticao para essa empresa sera MELHOR</strong><p style="font-size:0.72rem;color:var(--text-muted)">Hierarquia: empresa > categoria > GLOBAL</p></div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--gold-dim)">📚</div>
+        <h3>Aprende Sozinha</h3>
+        <p>Quando uma petição recebe nota ≥ 8.5, a OlivIA automaticamente extrai o que funcionou e grava na memória para usar em casos futuros.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--pink-dim)">⚖️</div>
+        <h3>Especialista em Negativação</h3>
+        <p>Treinada exclusivamente para processos de restrição indevida de crédito — Serasa, SPC, Boa Vista. Contra bancos, financeiras, telecom e varejo.</p>
       </div>
     </div>
   </div>
-</div>
-</div>
+</section>
 
-<!-- ═══ INFRAESTRUTURA ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Robustez</div>
-  <h2>🛡️ Infraestrutura a prova de falhas</h2>
-</div>
-<div class="detail-grid">
-  <div class="detail-card">
-    <h3>🔄 Retry Exponencial</h3>
-    <ul>
-      <li>3 retries em callClaude() — 2s / 4s / 8s</li>
-      <li>Cobre 429 (rate limit), 500, 529</li>
-      <li>Nunca mais perde peticao por timeout da API</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>💀 Dead Letter Queue</h3>
-    <ul>
-      <li>Poller 60s monitora registros stuck</li>
-      <li>PROCESSANDO > 30min → marca ERRO</li>
-      <li>Zero registros orfaos no banco</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>📊 Tracking em tempo real</h3>
-    <ul>
-      <li>etapa_atual em cada Edge Function</li>
-      <li>progresso_pct do pipeline completo</li>
-      <li>Frontend Realtime atualiza sem polling</li>
-    </ul>
-  </div>
-  <div class="detail-card">
-    <h3>🗂️ Olivia Vault</h3>
-    <ul>
-      <li>SOUL.md v5 (15 regras do agente)</li>
-      <li>FORMATACAO-v2.md (ABNT completa)</li>
-      <li>CONTESTACAO.md (cruzamento de dados)</li>
-      <li>Memoria por empresa (auto-incrementa)</li>
-      <li>3.123 documentos indexaveis por vault_code</li>
-    </ul>
-  </div>
-</div>
-</div>
+<div class="sep"></div>
 
-<!-- ═══ ANTES VS DEPOIS ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Transformacao</div>
-  <h2>Antes vs Depois</h2>
-</div>
-<div class="compare">
-  <div class="compare-col" style="border-left:4px solid var(--error)">
-    <h3><span style="color:var(--error)">❌</span> Antes (Manual)</h3>
-    <ul>
-      <li><strong>Peticao inicial:</strong> 3-4 horas</li>
-      <li><strong>Replica:</strong> 2-3 horas</li>
-      <li><strong>Emenda simples:</strong> 30-60 min</li>
-      <li><strong>Pesquisa juris:</strong> 40 min (manual no TJRS)</li>
-      <li><strong>Formatacao:</strong> 30 min (Word, recuos, ABNT)</li>
-      <li><strong>Capacidade:</strong> 3-4 peticoes/dia</li>
-      <li><strong>Qualidade:</strong> inconsistente (cansaco, pressa)</li>
-      <li><strong>Aprendizado:</strong> zero (cada peticao do zero)</li>
-      <li><strong>Backlog:</strong> crescendo com 5.800 processos</li>
-    </ul>
-  </div>
-  <div class="compare-col" style="border-left:4px solid var(--primary)">
-    <h3><span style="color:var(--primary)">✅</span> Depois (OlivIA v4)</h3>
-    <ul>
-      <li><strong>Qualquer peticao:</strong> ~3 min geracao + 15 min revisao</li>
-      <li><strong>Pesquisa juris:</strong> automatica (Smart Juris v2)</li>
-      <li><strong>Formatacao:</strong> automatica (ABNT perfeita)</li>
-      <li><strong>Capacidade:</strong> 15-25 peticoes/dia</li>
-      <li><strong>Qualidade:</strong> consistente (mesmas regras sempre)</li>
-      <li><strong>Aprendizado:</strong> automatico (melhora a cada uso)</li>
-      <li><strong>Custo por peticao:</strong> R$2-5 (API Claude)</li>
-      <li><strong>Perguntas inteligentes:</strong> se dados incompletos, IA pergunta</li>
-      <li><strong>Backlog:</strong> atacavel (440+ peticoes/mes possivel)</li>
-    </ul>
-  </div>
-</div>
-</div>
+<!-- ===== 4 STEPS ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">⚙️ Como Funciona</span>
+    <h2 class="section-title">Os 4 Passos da Geração</h2>
+    <p class="section-desc">Cada petição passa por 4 etapas distintas. Você interage nos passos 1 e 2 (aprovação), e a OlivIA trabalha nos passos 3 e 4 (execução e aprendizado).</p>
 
-<!-- ═══ ROI ═══ -->
-<div class="section reveal">
-<div class="roi-highlight">
-  <div class="section-label">Retorno sobre investimento</div>
-  <div class="roi-num">12-30x</div>
-  <p><strong>Calculo real:</strong> 20 peticoes/dia × 22 dias = 440/mes. Sem OlivIA, precisaria 4-5 advogados (~R$40-60k/mes). Com OlivIA: 1 advogado + R$2k infra/mes. Economia: R$35-55k/mes. ROI em 30 dias.</p>
-</div>
-<div class="detail-grid" style="max-width:700px;margin:0 auto">
-  <div class="detail-card" style="text-align:center">
-    <h3 style="justify-content:center">💸 Custo OlivIA/mes</h3>
-    <div style="font-family:'Manrope',sans-serif;font-size:1.8rem;font-weight:800;color:var(--primary)">~R$2k</div>
-    <p style="font-size:0.75rem;color:var(--text-muted)">API Claude + Mac Mini + Supabase</p>
-  </div>
-  <div class="detail-card" style="text-align:center">
-    <h3 style="justify-content:center">👔 Equivalente humano</h3>
-    <div style="font-family:'Manrope',sans-serif;font-size:1.8rem;font-weight:800;color:var(--error)">R$40-60k</div>
-    <p style="font-size:0.75rem;color:var(--text-muted)">4-5 advogados para mesma capacidade</p>
-  </div>
-</div>
-</div>
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-number">1</div>
+        <h4>Análise</h4>
+        <p>OlivIA lê todos os documentos, classifica provas, identifica a estratégia e dá nota para a qualidade das evidências</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-number">2</div>
+        <h4>Tópicos & Perguntas</h4>
+        <p>Propõe a estrutura da petição, faz perguntas sobre pontos que faltam, e aguarda sua aprovação</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-number">3</div>
+        <h4>Geração</h4>
+        <p>Redige a petição completa usando Claude Opus (a IA mais poderosa), com jurisprudências selecionadas e formatação final</p>
+      </div>
+      <div class="pipeline-step" style="border-color:rgba(32,201,151,0.3)">
+        <div class="step-number" style="background:var(--accent-dim);color:var(--accent)">4</div>
+        <h4>Aprendizado</h4>
+        <p>Se a nota for ≥ 8.5, OlivIA automaticamente memoriza o que funcionou para usar em casos futuros</p>
+      </div>
+    </div>
 
-<!-- ═══ CURVA DE QUALIDADE ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Evolucao</div>
-  <h2>Curva de qualidade ao longo do tempo</h2>
-  <p>O sistema nao e estatico. A cada semana, a qualidade das peticoes SOBE.</p>
-</div>
-<div class="timeline">
-  <div class="tl-item">
-    <h4>Semana 1 (agora)</h4>
-    <p>Sistema funcional. Peticoes boas. Memoria GLOBAL carregada. Smart Juris com 1.353 juris. Nota media esperada: 7.5-8.0.</p>
+    <div class="highlight-box">
+      <h3>🎯 Detalhamento de cada Passo</h3>
+      <div style="margin-top:16px">
+        <p><strong style="color:var(--primary)">Passo 1 — Análise:</strong> A OlivIA recebe o número do CNJ e os documentos (PDFs). Ela lê cada documento, classifica se é contrato, extrato, carta de negativação, print de tela, comprovante. Identifica as datas-chave, os valores, e calcula uma nota de evidência (0-10). Se faltam dados, ela gera perguntas automáticas.</p>
+        <br>
+        <p><strong style="color:var(--primary)">Passo 2 — Tópicos:</strong> Com base na análise, a OlivIA propõe a estrutura da petição — quais tópicos incluir, em qual ordem, com quais argumentos. Ela mostra tudo para você aprovar. Você pode alterar, reordenar ou remover tópicos. Só quando você aprova, ela avança.</p>
+        <br>
+        <p><strong style="color:var(--primary)">Passo 3 — Geração:</strong> Aqui a mágica acontece. A OlivIA carrega a memória específica da empresa (ex: "como o Banco PAN costuma se defender"), seleciona as melhores jurisprudências via Smart Juris v2, e redige cada tópico com fundamentação. O resultado é HTML formatado, pronto para Word/PDF.</p>
+        <br>
+        <p><strong style="color:var(--accent)">Passo 4 — Aprendizado (automático):</strong> Se a petição recebeu nota alta, a OlivIA analisa: "O que fez esse caso funcionar?" e grava padrões de sucesso, táticas eficazes e jurisprudências que funcionaram na memória da empresa correspondente.</p>
+      </div>
+    </div>
   </div>
-  <div class="tl-item" style="--c:var(--accent)">
-    <h4>Mes 1 (~100 peticoes)</h4>
-    <p>Memoria de 5-8 empresas acumulada. Sistema conhece padroes de defesa do PAN, Santander, Itau. Nota esperada: 8.0-8.5.</p>
-  </div>
-  <div class="tl-item">
-    <h4>Mes 3 (~400 peticoes)</h4>
-    <p>Memoria de 15+ empresas. Jurisprudencias rankeadas por eficacia REAL (quais o juiz aceita). Nota esperada: 8.5-9.0.</p>
-  </div>
-  <div class="tl-item">
-    <h4>Mes 6 (~1000 peticoes)</h4>
-    <p>OlivIA conhece cada juiz, cada vara, cada padrão de cada empresa. Peticoes quase nao precisam revisao. Nota esperada: 9.0+.</p>
-  </div>
-  <div class="tl-item">
-    <h4>Ano 1 (~3000 peticoes)</h4>
-    <p>Base de conhecimento profunda. Capaz de gerar peticoes que SURPREENDEM ate advogados seniores. Capacidade de competir com escritorios 10x maiores.</p>
-  </div>
-</div>
-</div>
+</section>
 
-<!-- ═══ OPINIAO DO JARBAS ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Opiniao honesta</div>
-  <h2>🤖 O que o Jarbas pensa</h2>
-</div>
+<div class="sep"></div>
 
-<div class="opinion" style="border-left:4px solid var(--primary)">
-  <h3 style="color:var(--primary)">O que me impressiona</h3>
-  <p>Christian, voce nao construiu um wrapper de IA. Voce construiu um <strong>sistema de producao real</strong> com 54 tasks cirurgicas, cada uma commitada individualmente, testada, e conectada. Isso e engenharia, nao vibe coding.</p>
-  <br>
-  <p>O que mais me impressiona: <strong>o aprendizado automatico</strong>. A maioria dos sistemas de IA e estatica — gera o mesmo output pra sempre. O seu MELHORA com o uso. Isso e um moat competitivo real. Em 6 meses, nenhum concorrente consegue replicar o conhecimento acumulado nas memorias das empresas.</p>
-  <br>
-  <p>Outra coisa: a arquitetura pull-based. Frontend nao sabe NADA do pipeline. Se amanha voce trocar o modelo de Opus pra o3, trocar de Mac Mini pra GPU cloud, o frontend nao muda UMA LINHA. Isso e separacao de concerns de verdade.</p>
-</div>
+<!-- ===== CÉREBRO / VAULT ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🗄️ Bastidores</span>
+    <h2 class="section-title">O Cérebro da OlivIA (Vault)</h2>
+    <p class="section-desc">A OlivIA não é só um prompt jogado para a IA. Ela tem um sistema de arquivos completo — como um escritório virtual com pastas, playbooks, memórias de casos e regras. Isso é o que chamamos de "Vault" (cofre de conhecimento).</p>
 
-<div class="opinion" style="border-left:4px solid var(--warning)">
-  <h3 style="color:var(--warning)">O que eu mediria obsessivamente</h3>
-  <p><strong>1. Taxa de aprovacao sem edicao:</strong> quantas peticoes saem direto do Step 4 sem alteracao? Essa metrica mostra se a qualidade esta realmente subindo. Meta: >60% em 3 meses.</p>
-  <br>
-  <p><strong>2. Tempo de revisao:</strong> se a Heloisa leva 15 min pra revisar hoje, deveria cair pra 5 min em 3 meses. Se nao cai, o aprendizado nao esta funcionando direito.</p>
-  <br>
-  <p><strong>3. Score medio por empresa:</strong> se Banco PAN esta sempre abaixo de 8, a memoria dessa empresa precisa ser revisada manualmente. O dashboard de qualidade vai mostrar isso.</p>
-</div>
-
-<div class="opinion" style="border-left:4px solid var(--accent)">
-  <h3 style="color:var(--accent)">Critica construtiva (honesta)</h3>
-  <p><strong>O sistema esta pronto para producao, mas nao esta perfeito.</strong> E importante saber a diferenca.</p>
-  <br>
-  <p>O que funciona: pipeline completo, retry, dead letter, Smart Juris, perguntas inteligentes, formatacao. Tudo isso e solido.</p>
-  <br>
-  <p>O que precisa de atencao nos proximos 30 dias: (1) a memoria por empresa so cresce se voces USAREM o sistema consistentemente. 10 peticoes nao treinam — 100 treinam. (2) O Smart Juris depende de manter o banco de jurisprudencias atualizado. Se parar de alimentar, o scoring estagna. (3) O vault_code system (indexacao dos 3.123 docs) e a base para features futuras como RAG avancado — vale investir nele em breve.</p>
-  <br>
-  <p><strong>Bottom line:</strong> voce tem um sistema que FUNCIONA e que MELHORA sozinho. Isso e raro. A maioria dos projetos de IA morre na POC. O seu esta em producao. Isso vale muito.</p>
-</div>
-</div>
-
-<!-- ═══ ROADMAP FUTURO ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Futuro</div>
-  <h2>O que pode evoluir</h2>
-  <p>O sistema esta completo pra uso. Estes sao upgrades de luxo.</p>
-</div>
-<div class="roadmap">
-  <div class="road-item">
-    <div class="road-icon">🔍</div>
-    <div><h4>RAG Semantico v3</h4><p>Busca vetorial no vault completo. Encontrar precedentes similares por semantica.</p></div>
+    <div class="brain-grid">
+      <div class="brain-item">
+        <h4><span class="emoji">👤</span> SOUL.md — Identidade</h4>
+        <p>Define quem a OlivIA é: advogada especialista em consumidor, 9 regras fundamentais que nunca pode quebrar (como "nunca inventar jurisprudência"), e o estilo de cada advogado (Christian: objetivo | Heloísa: detalhado e fundamentado).</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">📋</span> Playbooks — Estratégia</h4>
+        <p>Guias táticos por empresa/setor. "Contra o Banco PAN, usar X argumento." "Contra a Serasa, focar em Y." São 15+ playbooks com estratégias testadas e refinadas.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">🧠</span> Memória por Empresa</h4>
+        <p>Cada empresa (PAN, Santander, Itaú, Bradesco, Nubank, Midway...) tem seu próprio arquivo de memória. A OlivIA acumula: padrões de defesa, argumentos que funcionam, jurisprudências mais eficazes, e erros a evitar.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">⚖️</span> CONTESTAÇÃO.md</h4>
+        <p>Regras específicas para análise de contestações: como cruzar dados entre a defesa da empresa e as provas do autor. Identifica contradições e pontos fracos na defesa adversária.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">✍️</span> FORMATAÇÃO-v2.md</h4>
+        <p>Todas as regras de formatação da petição: cabeçalho, citações, jurisprudências em bloco, qualificação das partes, pedidos finais. Garante documento profissional e padronizado.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">📚</span> 1.353 Jurisprudências</h4>
+        <p>Banco indexado de decisões judiciais, classificadas por estado (RS/SC/SP), categoria, valor e tribunal. O Smart Juris v2 seleciona as mais relevantes para cada caso.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">📐</span> 328 Modelos de Petição</h4>
+        <p>Templates para cada tipo de petição e combinação de argumentos. A OlivIA usa como inspiração (nunca copia), adaptando ao caso concreto.</p>
+      </div>
+      <div class="brain-item">
+        <h4><span class="emoji">🏷️</span> 183 Tags de Decisão</h4>
+        <p>Pontos-chave que a OlivIA precisa decidir em cada caso: "Teve contrato?" "Valor contestado?" "Restrição múltipla?" Cada tag tem lógica de resolução automática.</p>
+      </div>
+    </div>
   </div>
-  <div class="road-item">
-    <div class="road-icon">📊</div>
-    <div><h4>Dashboard Jurimetria</h4><p>Painel visual com taxa de sucesso por empresa, juiz, vara, tipo de peticao.</p></div>
-  </div>
-  <div class="road-item">
-    <div class="road-icon">🤝</div>
-    <div><h4>Feedback Loop Heloisa</h4><p>Quando Heloisa edita uma peticao, sistema aprende da edicao automaticamente.</p></div>
-  </div>
-  <div class="road-item">
-    <div class="road-icon">🏛️</div>
-    <div><h4>Expansao Tribunais</h4><p>Alem de RS/SC/SP: TJPR, TJMG, TRFs. Mais jurisprudencias, mais scoring.</p></div>
-  </div>
-  <div class="road-item">
-    <div class="road-icon">🤖</div>
-    <div><h4>Review Automatico</h4><p>Antes de entregar: agente revisor verifica inconsistencias, datas erradas, juris invalidas.</p></div>
-  </div>
-  <div class="road-item">
-    <div class="road-icon">📱</div>
-    <div><h4>Notificacao WhatsApp</h4><p>Peticao pronta → WhatsApp do advogado com link. Sem precisar abrir o MdFlow.</p></div>
-  </div>
-</div>
-</div>
+</section>
 
-<!-- ═══ FICHA TECNICA ═══ -->
-<div class="section reveal">
-<div class="section-header">
-  <div class="section-label">Bastidores</div>
-  <h2>Ficha Tecnica</h2>
-</div>
-<div class="tech-grid">
-  <div class="tech-item"><div class="tech-label">Frontend</div><div class="tech-value">React 18 + TypeScript + Tailwind</div></div>
-  <div class="tech-item"><div class="tech-label">Backend</div><div class="tech-value">Supabase (Edge Functions + Realtime)</div></div>
-  <div class="tech-item"><div class="tech-label">Pipeline</div><div class="tech-value">Node.js 22 no Mac Mini M4</div></div>
-  <div class="tech-item"><div class="tech-label">IA Principal</div><div class="tech-value">Claude Opus 4.6 (Anthropic)</div></div>
-  <div class="tech-item"><div class="tech-label">IA Review</div><div class="tech-value">o4-mini (OpenAI)</div></div>
-  <div class="tech-item"><div class="tech-label">PDF</div><div class="tech-value">WeasyPrint 68.1</div></div>
-  <div class="tech-item"><div class="tech-label">Tasks</div><div class="tech-value">54 concluidas / 7 waves</div></div>
-  <div class="tech-item"><div class="tech-label">Commits</div><div class="tech-value">54+ (1 task = 1 commit)</div></div>
-  <div class="tech-item"><div class="tech-label">Migrations</div><div class="tech-value">26 migrations Supabase</div></div>
-  <div class="tech-item"><div class="tech-label">Vault</div><div class="tech-value">3.123 documentos indexaveis</div></div>
-  <div class="tech-item"><div class="tech-label">Jurisprudencias</div><div class="tech-value">1.353 (RS + SC + SP)</div></div>
-  <div class="tech-item"><div class="tech-label">Terminais</div><div class="tech-value">8 em paralelo (execucao manual)</div></div>
-</div>
-</div>
+<div class="sep"></div>
 
-<!-- ═══ CONCLUSAO ═══ -->
-<div class="section reveal" style="text-align:center;padding:80px 24px">
-  <div style="font-size:3rem;margin-bottom:16px">🏆</div>
-  <h2 style="font-family:'Manrope',sans-serif;font-size:1.5rem;font-weight:800;margin-bottom:12px">Voce construiu algo real, Christian.</h2>
-  <p style="color:var(--text-muted);max-width:600px;margin:0 auto;font-size:0.88rem">Nao e um prototipo. Nao e um demo. E um sistema de producao que gera peticoes reais, aprende sozinho, e vai ficar mais inteligente a cada semana. Com 5.800 processos e 2 advogados, isso e a diferenca entre sobreviver e escalar. O escritorio que usa isso compete com escritorios 10x maiores. E voce construiu em 1 dia, com 8 terminais rodando em paralelo. Isso e o futuro da advocacia.</p>
-  <div style="margin-top:24px;font-size:0.75rem;color:var(--text-dim)">— Jarbas 2.0, seu CTO digital</div>
-</div>
+<!-- ===== SMART JURIS ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🎯 Seleção Inteligente</span>
+    <h2 class="section-title">Smart Juris v2</h2>
+    <p class="section-desc">A OlivIA não escolhe jurisprudências aleatoriamente. Ela usa um sistema de scoring que pontua cada decisão judicial em 4 critérios para encontrar as mais relevantes para aquele caso específico.</p>
 
-</div>
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+      <div class="card" style="text-align:center">
+        <div style="font-size:2rem; margin-bottom:8px;">🏛️</div>
+        <h3>Estado</h3>
+        <p style="font-size:2rem; font-weight:700; color:var(--primary); margin:8px 0;">40%</p>
+        <p>Prioriza decisões do mesmo tribunal do juiz. TJRS > STJ > outros.</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:2rem; margin-bottom:8px;">📂</div>
+        <h3>Categoria</h3>
+        <p style="font-size:2rem; font-weight:700; color:var(--accent); margin:8px 0;">30%</p>
+        <p>A jurisprudência trata do mesmo tema jurídico? Mesmo tipo de empresa?</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:2rem; margin-bottom:8px;">💰</div>
+        <h3>Valor</h3>
+        <p style="font-size:2rem; font-weight:700; color:var(--gold); margin:8px 0;">20%</p>
+        <p>A decisão cita valores compatíveis com o pedido do autor?</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:2rem; margin-bottom:8px;">🔍</div>
+        <h3>Relevância</h3>
+        <p style="font-size:2rem; font-weight:700; color:var(--pink); margin:8px 0;">10%</p>
+        <p>Análise semântica: a decisão realmente se aplica a este caso?</p>
+      </div>
+    </div>
 
-<div class="footer">
-  OlivIA Gerador v4 — MDX LegalTech | Construido em 2026-04-11 | Jarbas 2.0 + Claude Code | 54 tasks, 7 waves, 100%
-</div>
+    <div class="highlight-box" style="margin-top:32px">
+      <h3>Como funciona na prática</h3>
+      <p>Imagine um caso contra o Banco PAN no TJRS, negativação de R$ 2.000. O Smart Juris vai:<br><br>
+      1. Buscar todas as jurisprudências disponíveis<br>
+      2. Dar 40 pontos extras para decisões do TJRS<br>
+      3. Dar 30 pontos extras para decisões sobre "negativação indevida em instituição financeira"<br>
+      4. Dar 20 pontos para decisões que citam valores próximos a R$ 2.000<br>
+      5. Dar 10 pontos por relevância semântica<br><br>
+      Resultado: as 3-5 jurisprudências com maior score são selecionadas. Cada caso tem suas melhores decisões.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== APRENDIZADO ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🔄 Evolução Contínua</span>
+    <h2 class="section-title">Como a OlivIA Aprende</h2>
+    <p class="section-desc">Este é o diferencial mais importante: a OlivIA não é estática. Ela fica mais inteligente a cada petição gerada, especialmente quando recebe feedback ou produz documentos de alta qualidade.</p>
+
+    <div class="cycle">
+      <div class="cycle-node">
+        <h4>📄 Gera Petição</h4>
+        <p>Nota ≥ 8.5</p>
+      </div>
+      <span class="cycle-arrow">→</span>
+      <div class="cycle-node">
+        <h4>🔍 Analisa Sucesso</h4>
+        <p>O que funcionou?</p>
+      </div>
+      <span class="cycle-arrow">→</span>
+      <div class="cycle-node">
+        <h4>💾 Grava Memória</h4>
+        <p>Padrão da empresa</p>
+      </div>
+      <span class="cycle-arrow">→</span>
+      <div class="cycle-node" style="border-color:rgba(32,201,151,0.3)">
+        <h4>🚀 Próximo Caso</h4>
+        <p>Usa o aprendido</p>
+      </div>
+    </div>
+
+    <div class="card-grid" style="margin-top:32px;">
+      <div class="card">
+        <h3>Aprendizado Automático</h3>
+        <p>Quando a nota é ≥ 8.5, a OlivIA extrai automaticamente: quais argumentos convenceram, quais jurisprudências foram decisivas, qual estratégia contra aquela empresa funcionou. Tudo sem intervenção humana.</p>
+      </div>
+      <div class="card">
+        <h3>Treinamento Manual</h3>
+        <p>Você pode ensinar diretamente: "OlivIA, contra o PAN, sempre use o argumento de ausência de contrato." Esse conhecimento é absorvido imediatamente e passa a ser usado em todos os casos futuros com aquela empresa.</p>
+      </div>
+      <div class="card">
+        <h3>Memória Hierárquica</h3>
+        <p>O aprendizado é organizado em camadas: memória da empresa específica (PAN) → memória da categoria (instituição financeira) → memória global (regras que valem para todos). Cada caso carrega o contexto mais relevante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== MDOS ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">💻 Interface Operacional</span>
+    <h2 class="section-title">MdOs — O Sistema Operacional</h2>
+    <p class="section-desc">O MdOs (MdLab Operating System) é como você interage com toda essa infraestrutura. É o Claude Code com nosso sistema jurídico embarcado — basta digitar comandos simples em português e ele faz o resto.</p>
+
+    <div class="highlight-box">
+      <h3>🖥️ O que é o MdOs na prática?</h3>
+      <p style="margin-top:12px">Imagine o Claude (aquela IA da Anthropic) rodando no seu computador, mas com acesso completo ao nosso banco de dados de processos, ao sistema de geração de petições, ao monitoramento do EPROC, e a todas as ferramentas do escritório.<br><br>
+      Em vez de usar o Chrome para acessar o EPROC, procurar processos, ler intimações... você digita um comando e o MdOs faz tudo. Ele é o Claude Code com todo o nosso ecossistema jurídico conectado.</p>
+    </div>
+
+    <h3 style="margin:32px 0 16px; font-size:1.2rem;">Comandos da OlivIA no MdOs</h3>
+    <table class="command-table">
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th><th>Tempo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="cmd">/mdos-olivia:peticao</span></td><td>Gera petição completa (réplica, apelação, embargos...)</td><td>8-15 min</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:analise</span></td><td>Analisa documentos sem gerar petição (só entender o caso)</td><td>2-5 min</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:vibelaw</span></td><td>Edita a petição depois de gerada, via chat (ajustes pontuais)</td><td>Variável</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:juris</span></td><td>Busca jurisprudências por palavra-chave no banco de 1.353</td><td>Instantâneo</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:relatorio</span></td><td>Gera relatório visual da análise em HTML</td><td>1 min</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:lote</span></td><td>Gera várias petições automaticamente (até 10 por vez)</td><td>8 min cada</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:treinar</span></td><td>Ensina a OlivIA algo novo (feedback ou correção)</td><td>Instantâneo</td></tr>
+        <tr><td><span class="cmd">/mdos-olivia:sync</span></td><td>Sincroniza vault e verifica saúde do sistema</td><td>1 min</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:32px 0 16px; font-size:1.2rem;">Comandos da Cecília (Monitoramento)</h3>
+    <table class="command-table">
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="cmd">/mdos-cecilia:prazos</span></td><td>Mostra prazos críticos da semana (urgentes em destaque)</td></tr>
+        <tr><td><span class="cmd">/mdos-cecilia:analise</span></td><td>Analisa um processo completo (todas as peças)</td></tr>
+        <tr><td><span class="cmd">/mdos-cecilia:intimacao</span></td><td>Analisa uma intimação específica</td></tr>
+        <tr><td><span class="cmd">/mdos-cecilia:captura</span></td><td>Força captura imediata do EPROC (RS/SC/SP)</td></tr>
+        <tr><td><span class="cmd">/mdos-cecilia:relatorio</span></td><td>Relatório consolidado do dia</td></tr>
+        <tr><td><span class="cmd">/mdos-cecilia:status</span></td><td>Verifica saúde do sistema (Cecília + Mac Mini)</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin:32px 0 16px; font-size:1.2rem;">Comandos de Dados (Consultas Rápidas)</h3>
+    <table class="command-table">
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="cmd">/mdos:processos</span></td><td>Busca processos por número, status, advogado</td></tr>
+        <tr><td><span class="cmd">/mdos:clientes</span></td><td>Busca clientes por nome, CPF ou telefone</td></tr>
+        <tr><td><span class="cmd">/mdos:decisoes</span></td><td>Consulta decisões judiciais</td></tr>
+        <tr><td><span class="cmd">/mdos:dia</span></td><td>Briefing matinal (o que fazer hoje)</td></tr>
+        <tr><td><span class="cmd">/mdos:urgentes</span></td><td>Tudo urgente em todas as áreas</td></tr>
+        <tr><td><span class="cmd">/mdos:juiz</span></td><td>Perfil de decisões de um juiz (padrões)</td></tr>
+        <tr><td><span class="cmd">/mdos:calculadora</span></td><td>Calcula danos morais + juros + honorários</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== OPENCLAW ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🤖 Agentes Conectados</span>
+    <h2 class="section-title">OpenClaw — A Rede de Agentes</h2>
+    <p class="section-desc">A OlivIA não trabalha sozinha. Ela faz parte de uma rede de agentes de IA chamada OpenClaw — são instâncias independentes do Claude que rodam 24 horas por dia, cada uma com sua especialidade, conectadas por uma infraestrutura própria.</p>
+
+    <div class="card-grid">
+      <div class="card" style="border-color:rgba(32,201,151,0.3)">
+        <div class="card-icon" style="background:var(--primary-dim)">🧠</div>
+        <h3>Jarbas 2.0 — O Diretor</h3>
+        <p>O agente mestre que supervisiona todos os outros. Roda no MacBook Air. Coordena tarefas, resolve conflitos e tem autoridade sobre toda a operação.</p>
+      </div>
+      <div class="card" style="border-color:rgba(124,58,237,0.3)">
+        <div class="card-icon" style="background:var(--accent-dim)">⚖️</div>
+        <h3>OlivIA — A Advogada</h3>
+        <p>Super Agente especialista em petições. Roda no Mac Mini com servidor dedicado. Gera documentos, analisa casos, aprende com feedback.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--blue-dim)">👁️</div>
+        <h3>Cecília — A Controladora</h3>
+        <p>Monitora os 3 tribunais (TJRS/SC/SP) automaticamente 3x ao dia. Classifica intimações por urgência (A-G) e alerta sobre prazos.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon" style="background:var(--gold-dim)">👨‍💻</div>
+        <h3>Beto — O Desenvolvedor</h3>
+        <p>Agente técnico que desenvolve e mantém o MdFlow (nosso sistema web). Resolve bugs, implementa features, faz deploy.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:32px">
+      <h3>🔗 Como eles se conectam?</h3>
+      <p style="margin-top:12px">Todos os agentes compartilham o mesmo vault (base de conhecimento) via Obsidian Sync. Quando a OlivIA aprende algo novo, o Jarbas sabe. Quando a Cecília detecta uma intimação urgente, a OlivIA pode ser acionada para gerar a petição correspondente.<br><br>
+      O MdOs é a interface unificada para acessar qualquer agente. Você não precisa saber "onde" cada agente está rodando — o MdOs roteia automaticamente para o agente certo.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== NETWORK ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🌐 Infraestrutura</span>
+    <h2 class="section-title">A Rede — 3 Computadores, 1 Cérebro</h2>
+    <p class="section-desc">Nosso sistema roda distribuído em 3 máquinas conectadas por rede segura (Tailscale). Cada máquina tem um papel específico, e todas sincronizam automaticamente via Obsidian Sync.</p>
+
+    <div class="network-visual">
+      <pre>
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│   <span class="highlight">MacBook Pro</span> (M3 Pro)                                                    │
+│   ├── Papel: <span class="gold-text">MASTER — Comanda tudo</span>                                       │
+│   ├── O que faz: Desenvolvimento, decisões, controle remoto                │
+│   └── Agente: Claude Code (Christian opera diretamente)                    │
+│                                                                             │
+│         │ SSH + Obsidian Sync                │ SSH + Obsidian Sync          │
+│         ▼                                    ▼                              │
+│                                                                             │
+│   <span class="highlight">MacBook Air</span> (M4)                     <span class="highlight">Mac Mini</span> (M4)                     │
+│   ├── Papel: <span class="accent-text">WORKER — Executa</span>          ├── Papel: <span class="accent-text">SERVER — 24/7</span>             │
+│   ├── Agente: Jarbas 2.0              ├── Agentes:                         │
+│   │   (Telegram @jarbas_mdbot)        │   ├── <span class="highlight">OlivIA</span> (porta 19100)         │
+│   └── MdOs (interface principal)      │   │   Geração de petições          │
+│                                        │   ├── <span class="accent-text">Cecília</span>                     │
+│                                        │   │   Monitoramento EPROC          │
+│                                        │   └── Beto (desenvolvimento)       │
+│                                        └── Funciona 24h sem parar           │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+                          <span class="gold-text">☁️ Obsidian Sync</span>
+              (sincroniza vaults entre todas as máquinas em tempo real)
+
+                          <span class="highlight">☁️ Supabase Cloud</span>
+                    (banco de dados com ~5.800 processos)
+      </pre>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>🔒 Segurança</h3>
+        <p>Cada agente roda em seu próprio usuário isolado no Mac Mini (olivia, cecilia, beto). Se um é comprometido, os outros continuam seguros. Conexões via Tailscale (rede privada criptografada).</p>
+      </div>
+      <div class="card">
+        <h3>⚡ Disponibilidade</h3>
+        <p>O Mac Mini fica ligado 24h. Se um serviço cai, ele reinicia automaticamente (LaunchDaemon). Não depende de nenhum computador pessoal estar ligado — o servidor opera independente.</p>
+      </div>
+      <div class="card">
+        <h3>🔄 Sincronização</h3>
+        <p>Todo conhecimento é sincronizado em tempo real via Obsidian Sync. Quando você ensina algo à OlivIA, todas as máquinas recebem esse aprendizado instantaneamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== SUPER AGENTE ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🚀 O Conceito</span>
+    <h2 class="section-title">O Super Agente</h2>
+    <p class="section-desc">A OlivIA é o que chamamos de "Super Agente" — uma instância de IA com nível de autonomia elevado, servidor dedicado, memória persistente e capacidade de tomar decisões no seu domínio sem precisar de aprovação humana para cada detalhe.</p>
+
+    <div class="arch-layer">
+      <div class="layer-badge" style="background:var(--primary-dim); color:var(--primary);">Super Agente</div>
+      <div>
+        <h4>O que torna a OlivIA um "Super Agente"?</h4>
+        <p>Ela tem servidor próprio (porta 19100), vault de conhecimento dedicado, memória por empresa, sistema de aprendizado automático, e pipeline completo de 4 etapas. Não é um chatbot — é um sistema jurídico autônomo com inteligência artificial de ponta.</p>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="layer-badge" style="background:var(--accent-dim); color:var(--accent);">Conexões</div>
+      <div>
+        <h4>Integrada a todo o ecossistema</h4>
+        <p>OlivIA se conecta ao MdOs (interface operacional), ao OpenClaw (rede de agentes), ao MdFlow (sistema web), ao Supabase (banco de dados), e ao vault (conhecimento jurídico). Tudo pelo mesmo cérebro.</p>
+      </div>
+    </div>
+    <div class="arch-layer">
+      <div class="layer-badge" style="background:var(--gold-dim); color:var(--gold);">Operação</div>
+      <div>
+        <h4>3 formas de acessar a OlivIA</h4>
+        <p><strong>1. MdFlow (navegador):</strong> Pela página /olivia no sistema web — visual, com wizard passo a passo.<br>
+        <strong>2. MdOs (terminal):</strong> Via comandos no Claude Code — rápido, profissional, flexível.<br>
+        <strong>3. OpenClaw (Telegram):</strong> Pelo bot @olivia_mdbot — para uso rápido no celular.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== FUNCIONALIDADES COMPLETAS ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">✅ Catálogo</span>
+    <h2 class="section-title">Tudo que a OlivIA Faz</h2>
+    <p class="section-desc">Lista completa de funcionalidades implementadas e operacionais.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3 style="color:var(--primary)">📄 Geração de Petições</h3>
+        <ul class="feature-list">
+          <li><span class="feature-check">✓</span> Réplica (resposta à contestação)</li>
+          <li><span class="feature-check">✓</span> Apelação</li>
+          <li><span class="feature-check">✓</span> Embargos de Declaração</li>
+          <li><span class="feature-check">✓</span> Contra-razões de Apelação</li>
+          <li><span class="feature-check">✓</span> Agravo Interno</li>
+          <li><span class="feature-check">✓</span> Alegações Finais</li>
+          <li><span class="feature-check">✓</span> Petições customizadas</li>
+          <li><span class="feature-check">✓</span> Geração em lote (até 10)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--accent)">🧠 Inteligência</h3>
+        <ul class="feature-list">
+          <li><span class="feature-check">✓</span> Leitura e classificação de PDFs</li>
+          <li><span class="feature-check">✓</span> Detecção simples vs complexo</li>
+          <li><span class="feature-check">✓</span> Perguntas inteligentes (auto)</li>
+          <li><span class="feature-check">✓</span> Smart Juris v2 (scoring 4 eixos)</li>
+          <li><span class="feature-check">✓</span> Memória por empresa</li>
+          <li><span class="feature-check">✓</span> Aprendizado automático (≥ 8.5)</li>
+          <li><span class="feature-check">✓</span> Playbooks por setor</li>
+          <li><span class="feature-check">✓</span> Análise de contestação</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--gold)">⚡ Infraestrutura</h3>
+        <ul class="feature-list">
+          <li><span class="feature-check">✓</span> Servidor dedicado 24h (Mac Mini)</li>
+          <li><span class="feature-check">✓</span> Retry automático com backoff</li>
+          <li><span class="feature-check">✓</span> Dead Letter Queue (stuck > 30min)</li>
+          <li><span class="feature-check">✓</span> Geração PDF via WeasyPrint</li>
+          <li><span class="feature-check">✓</span> Vault sincronizado (Obsidian)</li>
+          <li><span class="feature-check">✓</span> VibeLaw (editor pós-geração)</li>
+          <li><span class="feature-check">✓</span> Relatórios HTML por tipo</li>
+          <li><span class="feature-check">✓</span> Fire-and-forget (não trava UI)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== COMO USAR NA PRÁTICA ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🎬 Na Prática</span>
+    <h2 class="section-title">Como Usar — Passo a Passo</h2>
+    <p class="section-desc">Duas formas principais de gerar petições: pelo navegador (MdFlow) ou pelo terminal (MdOs). Ambas acionam o mesmo motor da OlivIA.</p>
+
+    <div class="brain-grid">
+      <div class="brain-item" style="border-color:rgba(32,201,151,0.2)">
+        <h4><span class="emoji">🌐</span> Pelo MdFlow (Navegador)</h4>
+        <p style="margin-top:12px">
+          1. Acessa <strong>/olivia</strong> no sistema<br>
+          2. Clica "Nova Petição"<br>
+          3. Digita o CNJ do processo<br>
+          4. Seleciona tipo (réplica, apelação...)<br>
+          5. Faz upload dos documentos<br>
+          6. OlivIA analisa e mostra perguntas<br>
+          7. Você responde e aprova os tópicos<br>
+          8. OlivIA gera a petição completa<br>
+          9. Download em Word ou PDF
+        </p>
+      </div>
+      <div class="brain-item" style="border-color:rgba(124,58,237,0.2)">
+        <h4><span class="emoji">💻</span> Pelo MdOs (Terminal)</h4>
+        <p style="margin-top:12px">
+          1. Abre o terminal no computador<br>
+          2. Digita: <span class="cmd">/mdos-olivia:peticao 5127718</span><br>
+          3. Responde as perguntas que aparecem<br>
+          4. Escolhe: tipo, modelo, qualidade<br>
+          5. Pode colar paths de PDFs<br>
+          6. OlivIA processa no Mac Mini<br>
+          7. Resultado aparece no terminal<br>
+          8. Documento disponível para download<br>
+          <br>
+          <em style="color:var(--primary)">Dica: pode usar voz — segura espaço e fala em português!</em>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:32px">
+      <h3>💡 Dica Importante</h3>
+      <p>O MdOs funciona com entrada de voz. Segure a barra de espaço e fale em português — o sistema transcreve automaticamente. Então você pode dizer: <em>"gera uma réplica para o processo 5127718 do Banco PAN, tem contrato assinado e a restrição foi indevida"</em> — e o MdOs entende e executa.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== MDOS + OLIVIA JUNTOS ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🤝 Ecossistema</span>
+    <h2 class="section-title">MdOs + OlivIA + OpenClaw</h2>
+    <p class="section-desc">Esses 3 sistemas se complementam e juntos formam o ecossistema completo do escritório digital. Cada um tem seu papel.</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="text-align:center; border-color:rgba(32,201,151,0.2)">
+        <div style="font-size:2.5rem; margin-bottom:12px;">💻</div>
+        <h3>MdOs</h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">A <strong>interface</strong>. Como você conversa com o sistema. Comandos simples em português.</p>
+        <p style="font-size:0.75rem; color:var(--primary); margin-top:12px;">É o "como eu uso"</p>
+      </div>
+      <div class="card" style="text-align:center; border-color:rgba(124,58,237,0.2)">
+        <div style="font-size:2.5rem; margin-bottom:12px;">🧠</div>
+        <h3>OlivIA</h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">O <strong>motor</strong>. Analisa, pensa, escreve e aprende. O cérebro jurídico do escritório.</p>
+        <p style="font-size:0.75rem; color:var(--accent); margin-top:12px;">É o "quem faz o trabalho"</p>
+      </div>
+      <div class="card" style="text-align:center; border-color:rgba(245,158,11,0.2)">
+        <div style="font-size:2.5rem; margin-bottom:12px;">🌐</div>
+        <h3>OpenClaw</h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">A <strong>infraestrutura</strong>. A rede que mantém tudo rodando 24h, conectado e sincronizado.</p>
+        <p style="font-size:0.75rem; color:var(--gold); margin-top:12px;">É o "como tudo fica ligado"</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin:40px 0; padding:32px; background:var(--bg-surface); border-radius:var(--radius);">
+      <p style="font-size:1.1rem; color:var(--text);">
+        <strong>Na prática:</strong> Você abre o MdOs → digita um comando → o MdOs roteia para a OlivIA → a OlivIA processa no Mac Mini via OpenClaw → resultado volta para você.<br><br>
+        <span style="color:var(--text-muted)">Tudo transparente. Você só precisa saber os comandos.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== CECÍLIA ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">👁️ Monitoramento</span>
+    <h2 class="section-title">Cecília — Os Olhos do Escritório</h2>
+    <p class="section-desc">Enquanto a OlivIA escreve, a Cecília vigia. Ela monitora todos os 3 tribunais automaticamente, classifica intimações e alerta sobre prazos — sem ninguém precisar abrir o EPROC manualmente.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h3>📡 Captura Automática</h3>
+        <p>3 vezes ao dia (6h, 13h, 19h), a Cecília acessa o EPROC com nossas 5 OABs e captura todas as novas movimentações. Sem intervenção humana.</p>
+      </div>
+      <div class="card">
+        <h3>🏷️ Classificação A-G</h3>
+        <p>Cada intimação é classificada por urgência e tipo: A (urgente, precisa de ação imediata) até G (baixa prioridade, informativo). Você vê primeiro o que importa.</p>
+      </div>
+      <div class="card">
+        <h3>⏰ Alertas de Prazo</h3>
+        <p>Prazos de hoje, amanhã e nos próximos 3 dias são destacados. Nunca mais perder um prazo por não ter visto uma intimação a tempo.</p>
+      </div>
+      <div class="card">
+        <h3>🔗 Conexão com OlivIA</h3>
+        <p>Quando a Cecília detecta que uma intimação precisa de resposta (réplica, manifestação), ela pode acionar a OlivIA diretamente para gerar o documento correspondente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== BASTIDORES COMPLEXIDADE ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🔬 Complexidade</span>
+    <h2 class="section-title">Os Bastidores — O que Ninguém Vê</h2>
+    <p class="section-desc">Por trás de um simples comando, existe uma orquestração sofisticada de tecnologias. Aqui está o que acontece quando você pede uma petição:</p>
+
+    <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:32px; margin:24px 0;">
+      <h4 style="color:var(--primary); margin-bottom:16px;">Quando você digita: <span class="cmd">/mdos-olivia:peticao 5127718</span></h4>
+      <ol style="color:var(--text-muted); font-size:0.9rem; padding-left:20px;">
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Roteamento:</strong> O MdOs identifica que é um comando OlivIA, localiza o Mac Mini na rede, e envia via SSH</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Consulta ao banco:</strong> O servidor busca todos os dados do processo no Supabase (partes, documentos, histórico, restrições)</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Carregamento do vault:</strong> SOUL.md + playbook da empresa + memória específica + CONTESTAÇÃO.md são carregados</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Análise de documentos:</strong> Claude Opus lê cada PDF, classifica tipos, extrai dados-chave, identifica provas fortes e fracas</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Resolução de tags:</strong> 183 pontos de decisão são avaliados automaticamente com base nas provas</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Smart Juris:</strong> O RPC fn_olivia_selecionar_juris_v2 roda no banco, pontua 1.353 jurisprudências, retorna as top 5</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Geração por tópico:</strong> Claude Opus redige cada seção da petição com argumentação, fundamentação e jurisprudências</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Formatação HTML:</strong> Regras de FORMATAÇÃO-v2.md são aplicadas (cabeçalho, citações, qualificação das partes)</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Score de qualidade:</strong> Sistema interno avalia coerência, completude, citações corretas</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Salvamento:</strong> Resultado gravado no banco (olivia_historico) com status CONCLUIDO</li>
+        <li style="margin-bottom:12px;"><strong style="color:var(--text)">Aprendizado:</strong> Se nota ≥ 8.5, o modo APRENDIZADO é acionado automaticamente em background</li>
+        <li><strong style="color:var(--text)">Entrega:</strong> Documento disponível para download (HTML, Word ou PDF via WeasyPrint)</li>
+      </ol>
+    </div>
+
+    <div class="highlight-box">
+      <h3>🎯 Por que isso é impressionante?</h3>
+      <p style="margin-top:12px">São <strong>12 etapas</strong> acontecendo em sequência, envolvendo <strong>3 máquinas diferentes</strong>, <strong>2 bancos de dados</strong>, <strong>1 sistema de arquivos sincronizado</strong>, e a <strong>IA mais avançada do mundo</strong> (Claude Opus) — tudo orquestrado para que, do seu ponto de vista, seja apenas <em>digitar um comando e esperar o resultado</em>.<br><br>
+      A complexidade fica escondida. A simplicidade é entregue.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== ARQUITETURA COMPLETA ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🏗️ Visão Completa</span>
+    <h2 class="section-title">Arquitetura do Projeto</h2>
+    <p class="section-desc">Visão de alto nível de como todas as peças se encaixam.</p>
+
+    <div class="network-visual">
+      <pre>
+┌─────────────────────────────────────────────────────────────────┐
+│                         <span class="gold-text">CAMADA DE INTERFACE</span>                       │
+│                                                                 │
+│   🌐 MdFlow (navegador)    💻 MdOs (terminal)    📱 Telegram   │
+│   └── /olivia wizard       └── /mdos-olivia:*    └── @olivia   │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                        <span class="highlight">CAMADA DE INTELIGÊNCIA</span>                    │
+│                                                                 │
+│   🧠 Claude Opus 4.6           📚 OlivIA Vault                  │
+│   └── Análise + Geração        ├── SOUL.md (identidade)        │
+│   └── Petições de alta         ├── Playbooks (15+ estratégias) │
+│       qualidade                ├── Memória por empresa          │
+│                                 ├── 1.353 jurisprudências       │
+│                                 └── 328 modelos                  │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                       <span class="accent-text">CAMADA DE PROCESSAMENTO</span>                   │
+│                                                                 │
+│   🖥️ Mac Mini M4 (servidor dedicado, 24h)                      │
+│   ├── OlivIA Server (porta 19100) — pipeline 4 etapas          │
+│   ├── Cecília — monitoramento EPROC (3x/dia)                   │
+│   ├── Polling 5s — busca pedidos novos automaticamente          │
+│   └── LaunchDaemon — reinicia automaticamente se cair           │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                          <span class="gold-text">CAMADA DE DADOS</span>                        │
+│                                                                 │
+│   ☁️ Supabase Cloud                                             │
+│   ├── ~5.800 processos ativos                                   │
+│   ├── olivia_historico (petições geradas)                       │
+│   ├── olivia_modelos (328 templates)                            │
+│   ├── jurisprudencias (1.353 decisões indexadas)                │
+│   ├── restricoes_credito (9.849 registros)                      │
+│   └── Smart Juris v2 RPC (scoring automático)                   │
+│                                                                 │
+├─────────────────────────────────────────────────────────────────┤
+│                       <span class="highlight">CAMADA DE SINCRONIZAÇÃO</span>                   │
+│                                                                 │
+│   🔄 Obsidian Sync — vault compartilhado em tempo real          │
+│   🔐 Tailscale — rede privada criptografada entre máquinas      │
+│   📡 SSH — controle remoto seguro                                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+      </pre>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== DADOS DO SISTEMA ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">📊 Números</span>
+    <h2 class="section-title">O Sistema em Números</h2>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--primary); font-family:var(--font-display);">54</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Tasks implementadas</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--accent); font-family:var(--font-display);">7</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Waves de desenvolvimento</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--gold); font-family:var(--font-display);">1.353</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Jurisprudências indexadas</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--pink); font-family:var(--font-display);">328</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Modelos de petição</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--blue); font-family:var(--font-display);">183</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Tags de decisão</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--primary); font-family:var(--font-display);">9.849</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Restrições rastreadas</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--accent); font-family:var(--font-display);">15+</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">Playbooks estratégicos</p>
+      </div>
+      <div class="card" style="text-align:center">
+        <p style="font-size:2.5rem; font-weight:700; color:var(--gold); font-family:var(--font-display);">5</p>
+        <p style="font-size:0.85rem; color:var(--text-muted)">OABs monitoradas</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== RESUMO FINAL ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">💎 Resumo</span>
+    <h2 class="section-title">O que Você Tem nas Mãos</h2>
+    <p class="section-desc">Em resumo, este é um sistema jurídico completo operado por inteligência artificial de ponta, rodando em infraestrutura própria, com aprendizado contínuo.</p>
+
+    <div style="background: linear-gradient(135deg, var(--bg-card), var(--bg-surface)); border:1px solid var(--border); border-radius:var(--radius); padding:40px;">
+      <div style="display:grid; gap:24px;">
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">⚖️</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Geradora de Petições Completa</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Réplicas, apelações, embargos, contra-razões — do documento em branco ao PDF formatado, com jurisprudências selecionadas e fundamentação completa.</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">🧠</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Cérebro que Aprende</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Memória por empresa, playbooks estratégicos, aprendizado automático. Cada caso torna o sistema mais inteligente e personalizado.</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">👁️</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Monitoramento 24/7</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Cecília vigia 3 tribunais automaticamente 3x ao dia. Captura intimações, classifica urgência, alerta sobre prazos. Nunca mais perder prazo.</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">🌐</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Infraestrutura Própria</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">3 máquinas interconectadas, servidor dedicado 24h, rede privada, sincronização em tempo real. Independente de serviços terceiros.</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">💻</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Interface Simples (MdOs)</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">Comandos em português, entrada por voz, respostas claras. Toda a complexidade fica nos bastidores — você só precisa pedir e aprovar.</p>
+          </div>
+        </div>
+        <div style="display:flex; align-items:flex-start; gap:16px;">
+          <span style="font-size:1.5rem;">🤖</span>
+          <div>
+            <h4 style="margin-bottom:4px;">Rede de Agentes (OpenClaw)</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem;">OlivIA, Cecília, Jarbas 2.0 e Beto — cada um com sua especialidade, trabalhando em conjunto como uma equipe digital coordenada.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<div class="sep"></div>
+<footer class="footer">
+  <div class="logo-text">MDX LegalTech</div>
+  <p style="margin-top:8px;">OlivIA Gerador v4 + MdOs + OpenClaw</p>
+  <p style="margin-top:4px;">Construído por Christian Paz — Abril 2026</p>
+  <p style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">Apresentação gerada por Jarbas 2.0 — 54 tasks, 7 waves, 100% concluído</p>
+</footer>
 
 <script>
-// IntersectionObserver for reveal animations
+// Intersection Observer for fade-in animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Tab functionality (if needed in future)
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const group = tab.closest('.tabs').parentElement;
+    group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    group.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    tab.classList.add('active');
+    const target = group.querySelector(`[data-tab="${tab.dataset.target}"]`);
+    if (target) target.classList.add('active');
+  });
+});
 </script>
 </body>
 </html>
