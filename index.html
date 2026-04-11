@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OlivIA + MdOs — Apresentação Completa</title>
+<title>OlivIA + MdFlow + MdOs — Sistema Completo</title>
 <style>
 :root {
   --bg: #0a0a0f;
@@ -242,6 +242,10 @@ section { padding: 80px 0; }
   gap: 24px;
 }
 @media (max-width: 768px) { .brain-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .card-grid[style*="repeat(4"] { grid-template-columns: repeat(2, 1fr) !important; }
+  section [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+}
 .brain-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -467,8 +471,8 @@ section { padding: 80px 0; }
 <section class="hero">
   <div class="hero-content">
     <div class="for-who">💜 Apresentação exclusiva para Heloísa</div>
-    <h1 style="margin-top:24px">OlivIA + MdOs</h1>
-    <p class="subtitle">O sistema completo que gera petições, aprende com cada caso, e opera conectado entre nossos 3 computadores — tudo pelo mesmo cérebro.</p>
+    <h1 style="margin-top:24px">OlivIA + MdFlow + MdOs</h1>
+    <p class="subtitle">O sistema completo que gera petições, aprende com cada caso, e pode ser operado de 3 formas: pelo navegador (MdFlow), pelo terminal (MdOs) ou pelo Telegram (OpenClaw) — tudo pelo mesmo cérebro.</p>
     <p style="color:var(--text-muted); font-size:0.9rem; margin-top:16px;">Apresentado por Jarbas 2.0 — 11 de abril de 2026</p>
   </div>
   <div class="scroll-hint">↓ Rolar para explorar</div>
@@ -700,12 +704,134 @@ section { padding: 80px 0; }
 
 <div class="sep"></div>
 
+<!-- ===== MDFLOW ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🌐 Sistema Principal</span>
+    <h2 class="section-title">MdFlow — O Frontend do Escritório</h2>
+    <p class="section-desc">O MdFlow é o nosso sistema web principal — a plataforma onde toda a operação do escritório acontece. É nele que a OlivIA tem sua interface mais visual e amigável, com wizard passo a passo.</p>
+
+    <div class="highlight-box">
+      <h3>🖥️ O que é o MdFlow?</h3>
+      <p style="margin-top:12px">O MdFlow é um SaaS completo de operações jurídicas. Imagine um painel de controle no navegador onde você gerencia processos, clientes, decisões, prazos, finanças, documentos — e agora, também gera petições com a OlivIA. É o sistema que a equipe inteira usa no dia a dia, acessível de qualquer computador com internet.</p>
+    </div>
+
+    <h3 style="margin:32px 0 16px; font-size:1.3rem;">A Página /olivia no MdFlow</h3>
+    <p style="color:var(--text-muted); margin-bottom:24px;">A OlivIA tem uma página dedicada dentro do MdFlow com uma interface visual tipo "wizard" (passo a passo) que guia você por todo o processo de geração.</p>
+
+    <div class="card-grid">
+      <div class="card" style="border-left:3px solid var(--primary)">
+        <h3>Step 1 — Identificação</h3>
+        <p>Você informa o CNJ do processo, seleciona o tipo de petição (réplica, apelação...), escolhe o modelo, e faz upload dos documentos. Interface com drag & drop e seleção visual.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent)">
+        <h3>Step 2 — Análise + Perguntas</h3>
+        <p>A OlivIA analisa os documentos e mostra um relatório visual com nota de evidência, pontos fortes/fracos, e perguntas interativas para você responder antes de gerar.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--gold)">
+        <h3>Step 3 — Geração</h3>
+        <p>Acompanhe em tempo real: barra de progresso mostrando cada tópico sendo gerado. Ao final, a petição completa aparece formatada na tela, pronta para revisar.</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--pink)">
+        <h3>Step 4 — Resultado</h3>
+        <p>Petição pronta com opções de download (Word, PDF), envio direto, edição via VibeLaw (chat com a IA para ajustar trechos), e score de qualidade.</p>
+      </div>
+    </div>
+
+    <h3 style="margin:40px 0 16px; font-size:1.3rem;">Outras Páginas do MdFlow</h3>
+    <p style="color:var(--text-muted); margin-bottom:24px;">A OlivIA é uma das 33 páginas do sistema. O MdFlow cobre toda a operação:</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      <div class="card">
+        <h3 style="font-size:1rem;">📋 Processos & Clientes</h3>
+        <p><strong>/processos</strong> — Todos os ~5.800 processos com filtros, busca, status<br>
+        <strong>/clientes</strong> — Base de clientes com CPF, dados, histórico<br>
+        <strong>/pagina_processo</strong> — Ficha completa de cada processo</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem;">⚖️ Controller & Decisões</h3>
+        <p><strong>/controller</strong> — Painel de controle de intimações e prazos<br>
+        <strong>/decisoes</strong> — Registro de todas as decisões judiciais<br>
+        <strong>/atividades</strong> — Tarefas geradas automaticamente</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem;">💰 Financeiro</h3>
+        <p><strong>/financeiro</strong> — Receita, honorários, custas<br>
+        <strong>/acordos</strong> — Gestão de acordos judiciais<br>
+        <strong>/execucoes</strong> — Cumprimento de sentença</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem;">📊 Analytics & CRM</h3>
+        <p><strong>/dashboard</strong> — KPIs e métricas do escritório<br>
+        <strong>/crm</strong> — Funil comercial de leads<br>
+        <strong>/jurimetria</strong> — Estatísticas judiciais (juízes, varas)</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem;">💬 Comunicação</h3>
+        <p><strong>/mdzap</strong> — WhatsApp integrado<br>
+        <strong>/mdchat</strong> — Chat interno da equipe<br>
+        <strong>/marketing</strong> — Campanhas e captação</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:1rem;">🤖 IA & Modelos</h3>
+        <p><strong>/olivia</strong> — Gerador de petições (wizard 4 steps)<br>
+        <strong>/modelos</strong> — 328 modelos de petição editáveis<br>
+        <strong>/lolito</strong> — Assistente IA para equipe</p>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:32px">
+      <h3>🔗 MdFlow + OlivIA — Integração Total</h3>
+      <p style="margin-top:12px">Quando você está na página de um processo (<strong>/pagina_processo</strong>), pode clicar em "Gerar Petição" e ir direto para a OlivIA com o CNJ já preenchido. Quando a petição fica pronta, aparece na aba "Documentos" do processo. Tudo conectado — sem copiar/colar, sem salvar arquivo e subir em outro lugar.<br><br>
+      O MdFlow é <strong>o sistema do dia a dia</strong> — onde a equipe trabalha. A OlivIA é a funcionalidade mais poderosa dentro dele.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ===== 3 FORMAS DE ACESSO ===== -->
+<section class="fade-in">
+  <div class="container">
+    <span class="section-label">🔀 Acesso</span>
+    <h2 class="section-title">3 Formas de Gerar Petições</h2>
+    <p class="section-desc">A mesma OlivIA, o mesmo cérebro, o mesmo resultado — mas acessível de 3 formas diferentes dependendo da situação.</p>
+
+    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="card" style="border-top:3px solid var(--primary)">
+        <div style="font-size:2rem; margin-bottom:12px;">🌐</div>
+        <h3>MdFlow (Navegador)</h3>
+        <p style="margin-top:8px; font-size:0.9rem;">Interface visual com wizard passo a passo. Mais amigável para quem prefere clicar e ver tudo na tela. Upload de arquivos com drag & drop, barra de progresso, resultado visual.</p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--primary);"><strong>Ideal para:</strong> uso no escritório, quando tem documentos para subir, quando quer ver o progresso visual.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <div style="font-size:2rem; margin-bottom:12px;">💻</div>
+        <h3>MdOs (Terminal)</h3>
+        <p style="margin-top:8px; font-size:0.9rem;">Comandos em português no Claude Code. Mais rápido para quem já conhece. Aceita voz (segura espaço e fala). Respostas instantâneas, controle total.</p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--accent);"><strong>Ideal para:</strong> uso rápido, quando já sabe o CNJ, consultas de dados, geração em lote.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--gold)">
+        <div style="font-size:2rem; margin-bottom:12px;">📱</div>
+        <h3>OpenClaw (Telegram)</h3>
+        <p style="margin-top:8px; font-size:0.9rem;">Bot @olivia_mdbot no Telegram. Manda mensagem do celular e recebe a petição. Para situações urgentes ou quando está fora do escritório.</p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--gold);"><strong>Ideal para:</strong> fora do escritório, urgências, consultas rápidas pelo celular.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:32px; padding:24px; background:var(--bg-surface); border-radius:var(--radius); border:1px solid var(--border);">
+      <p style="font-size:1rem;">🧠 <strong>Mesmo cérebro, mesma qualidade.</strong> Não importa por onde você acessa — o motor é o mesmo Mac Mini, o mesmo vault, as mesmas jurisprudências, o mesmo aprendizado. A diferença é só a interface.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
 <!-- ===== MDOS ===== -->
 <section class="fade-in">
   <div class="container">
-    <span class="section-label">💻 Interface Operacional</span>
-    <h2 class="section-title">MdOs — O Sistema Operacional</h2>
-    <p class="section-desc">O MdOs (MdLab Operating System) é como você interage com toda essa infraestrutura. É o Claude Code com nosso sistema jurídico embarcado — basta digitar comandos simples em português e ele faz o resto.</p>
+    <span class="section-label">💻 Interface por Comando</span>
+    <h2 class="section-title">MdOs — O Sistema Operacional por Texto</h2>
+    <p class="section-desc">O MdOs (MdLab Operating System) é a segunda forma de acessar a OlivIA — via terminal. É o Claude Code com nosso sistema jurídico embarcado. Comandos simples em português, respostas instantâneas, aceita entrada por voz.</p>
 
     <div class="highlight-box">
       <h3>🖥️ O que é o MdOs na prática?</h3>
@@ -956,61 +1082,86 @@ section { padding: 80px 0; }
   <div class="container">
     <span class="section-label">🎬 Na Prática</span>
     <h2 class="section-title">Como Usar — Passo a Passo</h2>
-    <p class="section-desc">Duas formas principais de gerar petições: pelo navegador (MdFlow) ou pelo terminal (MdOs). Ambas acionam o mesmo motor da OlivIA.</p>
+    <p class="section-desc">Três formas de gerar petições — mesma OlivIA, mesma qualidade, interfaces diferentes. Escolha a que preferir para cada situação.</p>
 
-    <div class="brain-grid">
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;">
       <div class="brain-item" style="border-color:rgba(32,201,151,0.2)">
-        <h4><span class="emoji">🌐</span> Pelo MdFlow (Navegador)</h4>
-        <p style="margin-top:12px">
+        <h4><span class="emoji">🌐</span> MdFlow (Navegador)</h4>
+        <p style="margin-top:12px; font-size:0.9rem;">
           1. Acessa <strong>/olivia</strong> no sistema<br>
           2. Clica "Nova Petição"<br>
           3. Digita o CNJ do processo<br>
           4. Seleciona tipo (réplica, apelação...)<br>
-          5. Faz upload dos documentos<br>
+          5. Faz upload dos documentos (drag & drop)<br>
           6. OlivIA analisa e mostra perguntas<br>
           7. Você responde e aprova os tópicos<br>
-          8. OlivIA gera a petição completa<br>
+          8. Acompanha progresso em tempo real<br>
           9. Download em Word ou PDF
         </p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--primary)">✨ Interface mais visual e guiada</p>
       </div>
       <div class="brain-item" style="border-color:rgba(124,58,237,0.2)">
-        <h4><span class="emoji">💻</span> Pelo MdOs (Terminal)</h4>
-        <p style="margin-top:12px">
+        <h4><span class="emoji">💻</span> MdOs (Terminal)</h4>
+        <p style="margin-top:12px; font-size:0.9rem;">
           1. Abre o terminal no computador<br>
           2. Digita: <span class="cmd">/mdos-olivia:peticao 5127718</span><br>
-          3. Responde as perguntas que aparecem<br>
+          3. Responde as perguntas no terminal<br>
           4. Escolhe: tipo, modelo, qualidade<br>
           5. Pode colar paths de PDFs<br>
           6. OlivIA processa no Mac Mini<br>
           7. Resultado aparece no terminal<br>
           8. Documento disponível para download<br>
           <br>
-          <em style="color:var(--primary)">Dica: pode usar voz — segura espaço e fala em português!</em>
+          <em style="color:var(--accent); font-size:0.8rem">🎤 Aceita voz — segura espaço e fala!</em>
         </p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--accent)">⚡ Mais rápido e flexível</p>
+      </div>
+      <div class="brain-item" style="border-color:rgba(245,158,11,0.2)">
+        <h4><span class="emoji">📱</span> OpenClaw (Telegram)</h4>
+        <p style="margin-top:12px; font-size:0.9rem;">
+          1. Abre o Telegram no celular<br>
+          2. Manda mensagem para @olivia_mdbot<br>
+          3. Diz: "Gerar réplica processo 5127718"<br>
+          4. OlivIA pergunta o que falta<br>
+          5. Responde por texto ou áudio<br>
+          6. Processamento no Mac Mini<br>
+          7. Recebe notificação quando pronto<br>
+          8. PDF/Word disponível para download<br>
+          <br>
+        </p>
+        <p style="margin-top:12px; font-size:0.8rem; color:var(--gold)">📱 Usa de qualquer lugar</p>
       </div>
     </div>
 
     <div class="highlight-box" style="margin-top:32px">
-      <h3>💡 Dica Importante</h3>
-      <p>O MdOs funciona com entrada de voz. Segure a barra de espaço e fale em português — o sistema transcreve automaticamente. Então você pode dizer: <em>"gera uma réplica para o processo 5127718 do Banco PAN, tem contrato assinado e a restrição foi indevida"</em> — e o MdOs entende e executa.</p>
+      <h3>💡 Qual usar?</h3>
+      <p><strong style="color:var(--primary)">MdFlow</strong> — quando está no escritório com documentos para subir e quer ver tudo visualmente. É a forma mais completa e guiada.<br><br>
+      <strong style="color:var(--accent)">MdOs</strong> — quando quer velocidade, já sabe o que precisa, ou quer fazer várias coisas em sequência. Aceita voz (segura espaço e fala em português).<br><br>
+      <strong style="color:var(--gold)">OpenClaw</strong> — quando está fora do escritório, precisa de algo urgente, ou quer consultar rapidamente pelo celular.</p>
     </div>
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- ===== MDOS + OLIVIA JUNTOS ===== -->
+<!-- ===== ECOSSISTEMA COMPLETO ===== -->
 <section class="fade-in">
   <div class="container">
     <span class="section-label">🤝 Ecossistema</span>
-    <h2 class="section-title">MdOs + OlivIA + OpenClaw</h2>
-    <p class="section-desc">Esses 3 sistemas se complementam e juntos formam o ecossistema completo do escritório digital. Cada um tem seu papel.</p>
+    <h2 class="section-title">MdFlow + MdOs + OlivIA + OpenClaw</h2>
+    <p class="section-desc">Esses sistemas se complementam e juntos formam o ecossistema completo do escritório digital. Cada um tem seu papel.</p>
 
-    <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="card-grid" style="grid-template-columns: repeat(4, 1fr);">
       <div class="card" style="text-align:center; border-color:rgba(32,201,151,0.2)">
+        <div style="font-size:2.5rem; margin-bottom:12px;">🌐</div>
+        <h3>MdFlow</h3>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">O <strong>sistema web</strong>. 33 páginas para gerenciar toda a operação do escritório. Interface visual.</p>
+        <p style="font-size:0.75rem; color:var(--primary); margin-top:12px;">É o "onde tudo acontece"</p>
+      </div>
+      <div class="card" style="text-align:center; border-color:rgba(124,58,237,0.2)">
         <div style="font-size:2.5rem; margin-bottom:12px;">💻</div>
         <h3>MdOs</h3>
-        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">A <strong>interface</strong>. Como você conversa com o sistema. Comandos simples em português.</p>
+        <p style="font-size:0.85rem; color:var(--text-muted); margin-top:8px;">O <strong>terminal inteligente</strong>. Comandos em português com acesso a tudo. Entrada por voz.</p>
         <p style="font-size:0.75rem; color:var(--primary); margin-top:12px;">É o "como eu uso"</p>
       </div>
       <div class="card" style="text-align:center; border-color:rgba(124,58,237,0.2)">
@@ -1029,8 +1180,8 @@ section { padding: 80px 0; }
 
     <div style="text-align:center; margin:40px 0; padding:32px; background:var(--bg-surface); border-radius:var(--radius);">
       <p style="font-size:1.1rem; color:var(--text);">
-        <strong>Na prática:</strong> Você abre o MdOs → digita um comando → o MdOs roteia para a OlivIA → a OlivIA processa no Mac Mini via OpenClaw → resultado volta para você.<br><br>
-        <span style="color:var(--text-muted)">Tudo transparente. Você só precisa saber os comandos.</span>
+        <strong>Na prática:</strong> Você acessa pelo MdFlow (navegador), MdOs (terminal) ou Telegram (OpenClaw) → o pedido vai para a OlivIA no Mac Mini → ela processa com o vault + IA → resultado volta para você.<br><br>
+        <span style="color:var(--text-muted)">Tudo transparente. Mesma qualidade em qualquer interface.</span>
       </p>
     </div>
   </div>
@@ -1268,7 +1419,7 @@ section { padding: 80px 0; }
 <div class="sep"></div>
 <footer class="footer">
   <div class="logo-text">MDX LegalTech</div>
-  <p style="margin-top:8px;">OlivIA Gerador v4 + MdOs + OpenClaw</p>
+  <p style="margin-top:8px;">OlivIA Gerador v4 + MdFlow + MdOs + OpenClaw</p>
   <p style="margin-top:4px;">Construído por Christian Paz — Abril 2026</p>
   <p style="margin-top:16px; font-size:0.75rem; color:var(--text-muted);">Apresentação gerada por Jarbas 2.0 — 54 tasks, 7 waves, 100% concluído</p>
 </footer>
