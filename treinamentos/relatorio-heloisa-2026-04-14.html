@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Treinamento — Dra. Heloísa — 14/04/2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; }
+
+  .header { background: linear-gradient(135deg, #1a1225 0%, #0f1117 100%); border-bottom: 1px solid #2d3748; padding: 32px 48px; }
+  .header-top { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
+  .header h1 { font-size: 24px; font-weight: 700; color: #fff; }
+  .header-meta { font-size: 13px; color: #718096; margin-top: 4px; }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .badge-green { background: #1a4731; color: #68d391; }
+  .badge-purple { background: #2d1b5e; color: #b794f4; }
+  .badge-blue { background: #1a2a4a; color: #63b3ed; }
+  .badge-red { background: #3d1515; color: #fc8181; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 40px 48px; }
+  .section { margin-bottom: 40px; }
+  .section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #4a5568; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #1e2535; }
+
+  .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .summary-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; text-align: center; }
+  .summary-card .number { font-size: 32px; font-weight: 800; color: #b794f4; }
+  .summary-card .label { font-size: 12px; color: #718096; margin-top: 4px; }
+
+  .case-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; margin-bottom: 32px; }
+  .case-box h3 { font-size: 14px; font-weight: 600; color: #a0aec0; margin-bottom: 16px; }
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .case-item .key { font-size: 11px; color: #4a5568; text-transform: uppercase; letter-spacing: 0.5px; }
+  .case-item .val { font-size: 14px; color: #e2e8f0; margin-top: 2px; font-weight: 500; }
+
+  .alert-box { background: #2d1515; border: 1px solid #742a2a; border-radius: 12px; padding: 20px; margin-bottom: 32px; }
+  .alert-box h3 { color: #fc8181; font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .alert-box p { color: #feb2b2; font-size: 14px; line-height: 1.7; }
+  .alert-box strong { color: #fc8181; }
+
+  .error-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; margin-bottom: 16px; position: relative; overflow: hidden; }
+  .error-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #e53e3e; }
+  .error-card.warning::before { background: #ed8936; }
+  .error-card.info::before { background: #4299e1; }
+  .error-num { font-size: 11px; font-weight: 700; color: #fc8181; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .error-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+  .error-body { font-size: 14px; color: #a0aec0; line-height: 1.7; }
+  .error-body ul { padding-left: 20px; margin-top: 8px; }
+  .error-body li { margin-bottom: 5px; }
+  .error-body strong { color: #e2e8f0; }
+  .wrong { background: #2d1515; border: 1px solid #742a2a; border-radius: 8px; padding: 10px 14px; margin-top: 8px; font-size: 13px; color: #fc8181; }
+  .right { background: #1a2e1a; border: 1px solid #276749; border-radius: 8px; padding: 10px 14px; margin-top: 6px; font-size: 13px; color: #68d391; }
+
+  .structure-flow { display: flex; flex-direction: column; gap: 8px; }
+  .flow-item { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 8px; padding: 16px 20px; display: flex; align-items: flex-start; gap: 16px; }
+  .flow-item.main { border-color: #805ad5; background: #1a1035; }
+  .flow-item.secondary { border-color: #2b6cb0; background: #0d1a2e; }
+  .flow-item.tertiary { border-color: #276749; background: #0d1a12; }
+  .flow-num { border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; background: #2d3748; color: #a0aec0; }
+  .flow-item.main .flow-num { background: #44337a; color: #d6bcfa; }
+  .flow-item.secondary .flow-num { background: #2a4365; color: #90cdf4; }
+  .flow-item.tertiary .flow-num { background: #1c4532; color: #9ae6b4; }
+  .flow-title { font-size: 14px; font-weight: 700; color: #e2e8f0; }
+  .flow-desc { font-size: 13px; color: #718096; margin-top: 4px; line-height: 1.5; }
+  .flow-tag { font-size: 11px; font-weight: 700; margin-top: 6px; }
+  .flow-item.main .flow-tag { color: #b794f4; }
+  .flow-item.secondary .flow-tag { color: #63b3ed; }
+
+  .rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .rule-box { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; }
+  .rule-box h4 { font-size: 12px; font-weight: 700; color: #b794f4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .rule-box p, .rule-box li { font-size: 13px; color: #a0aec0; line-height: 1.6; }
+  .rule-box ul { padding-left: 16px; }
+  .rule-box li { margin-bottom: 4px; }
+  .rule-box .quote { background: #12172a; border-left: 3px solid #805ad5; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 12px; color: #b794f4; margin-top: 8px; font-style: italic; }
+
+  .vs-table { width: 100%; border-collapse: collapse; }
+  .vs-table th { background: #1a1f2e; color: #718096; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 16px; text-align: left; border-bottom: 1px solid #2d3748; }
+  .vs-table td { padding: 12px 16px; font-size: 13px; border-bottom: 1px solid #1a2030; color: #a0aec0; vertical-align: top; }
+  .vs-table tr:last-child td { border-bottom: none; }
+  .vs-table .wrong-cell { color: #fc8181; }
+  .vs-table .right-cell { color: #68d391; }
+
+  .footer { border-top: 1px solid #1e2535; padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #4a5568; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <span style="font-size:32px">⚖️</span>
+    <div>
+      <h1>Relatório de Treinamento — Dra. Heloísa Miglioranza</h1>
+      <div class="header-meta">
+        14 de abril de 2026 &nbsp;·&nbsp; Dra. Heloísa Miglioranza (OAB RS 131.163)
+        &nbsp;·&nbsp; <span class="badge badge-green">✓ Salvo no vault</span>
+        &nbsp;·&nbsp; <span class="badge badge-purple">Apelação · Crédito 1 Minuto · TJRS</span>
+        &nbsp;·&nbsp; <span class="badge badge-red">8 erros identificados</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="summary-grid">
+    <div class="summary-card"><div class="number">8</div><div class="label">Erros identificados</div></div>
+    <div class="summary-card"><div class="number">3</div><div class="label">Documentos analisados</div></div>
+    <div class="summary-card"><div class="number">1</div><div class="label">Contradição central</div></div>
+    <div class="summary-card"><div class="number">100%</div><div class="label">Auto-aprovado</div></div>
+  </div>
+
+  <!-- Contradição central -->
+  <div class="alert-box">
+    <h3>⚡ Contradição Central — Argumento Mais Forte do Processo</h3>
+    <p>
+      <strong>Contestação (pág. 10):</strong> "a operação foi contratada diretamente no caixa eletrônico" (presencial)<br>
+      <strong>Comprovante OUT2:</strong> "Canal de Contratação: Agência Virtual" (NÃO PRESENCIAL)<br><br>
+      O banco afirma duas coisas incompatíveis sobre o mesmo ato. Isso não foi explorado pela OlivIA e deveria ser o coração da apelação — pode ensejar parágrafo de má-fé processual.
+    </p>
+  </div>
+
+  <!-- Caso -->
+  <div class="case-box">
+    <h3>📁 Caso de Referência</h3>
+    <div class="case-grid">
+      <div class="case-item"><div class="key">Processo</div><div class="val">5128862-65.2025.8.21.0001</div></div>
+      <div class="case-item"><div class="key">Réu</div><div class="val">Banrisul</div></div>
+      <div class="case-item"><div class="key">Produto</div><div class="val">Crédito 1 Minuto (empréstimo)</div></div>
+      <div class="case-item"><div class="key">Sentença</div><div class="val">Improcedente — 12 parcelas pagas = venire</div></div>
+      <div class="case-item"><div class="key">Autora</div><div class="val">Mainara Cezarino Quevedo</div></div>
+      <div class="case-item"><div class="key">Fundamento sentença</div><div class="val">Histórico de pagamento + Súmula 385 (ofícios)</div></div>
+    </div>
+  </div>
+
+  <!-- Erros -->
+  <div class="section">
+    <div class="section-title">8 Erros da Apelação Gerada</div>
+
+    <div class="error-card">
+      <div class="error-num">Erro 1 — Estrutura</div>
+      <div class="error-title">Estrutura totalmente errada</div>
+      <div class="error-body">
+        <div class="wrong">❌ OlivIA fez: (1) Insuficiência probatória → (2) Dano moral + Súmula 385 → (3) Honorários</div>
+        <div class="right">✅ Correto: (1) Falta de contrato [elaborado] → (2) Contradições + Provas unilaterais [1 tópico] → (3) Dano moral [sem subtópico 385]</div>
+      </div>
+    </div>
+
+    <div class="error-card">
+      <div class="error-num">Erro 2 — Contradição Central</div>
+      <div class="error-title">Não identificou a contradição presencial × não presencial</div>
+      <div class="error-body">
+        A maior contradição do processo — contestação diz "caixa eletrônico na agência" e o comprovante diz "Agência Virtual (canal não presencial)" — não foi mencionada em nenhum momento.
+        <br><br>Deve ter tópico ou parágrafo específico, podendo incluir argumento de <strong>má-fé processual</strong>.
+      </div>
+    </div>
+
+    <div class="error-card warning">
+      <div class="error-num">Erro 3 — Relação Prévia</div>
+      <div class="error-title">Não atacou a ausência de relação prévia</div>
+      <div class="error-body">
+        Para contratar Crédito 1 Minuto é necessário ser correntista do banco.
+        <ul>
+          <li>O banco não juntou abertura de conta corrente</li>
+          <li>Não há prova de que a autora era cliente do Banrisul</li>
+          <li>Como pode contratar empréstimo sem ser correntista? — não foi questionado</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="error-card warning">
+      <div class="error-num">Erro 4 — Comprovante ≠ Contrato</div>
+      <div class="error-title">Não atacou o comprovante como não sendo um contrato</div>
+      <div class="error-body">
+        O OUT2 não é um contrato. Mas a OlivIA não demonstrou isso claramente.
+        <ul>
+          <li>Não tem cláusulas contratuais</li>
+          <li>Não tem assinatura da parte autora</li>
+          <li>Não tem autenticação digital (ICP-Brasil)</li>
+          <li>Não tem registro de ID nem geolocalização</li>
+          <li><strong>Foi emitido em 06/06/2025 — 2 anos depois da suposta contratação de 03/05/2023</strong></li>
+          <li>É um comprovante gerado unilateralmente pelo banco — não prova manifestação de vontade</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="error-card">
+      <div class="error-num">Erro 5 — Rebate à Sentença</div>
+      <div class="error-title">Não rebateu o fundamento da sentença (12 parcelas pagas)</div>
+      <div class="error-body">
+        A sentença usou a planilha OUT3 para dizer que 12 parcelas foram pagas = venire contra factum proprium.
+        A OlivIA não atacou a validade jurídica da planilha nem rebateu esse argumento diretamente.
+        <div class="right">✅ O que deveria dizer: "A planilha é uma tabela interna gerada por agente bancário — sem assinatura, sem comprovantes individuais de pagamento da autora, sem auditoria de terceiros. O juiz aceitou como prova plena um documento que não possui qualquer validade jurídica autônoma."</div>
+      </div>
+    </div>
+
+    <div class="error-card info">
+      <div class="error-num">Erro 6 — Condensação</div>
+      <div class="error-title">Dois tópicos sobre a mesma coisa</div>
+      <div class="error-body">
+        Divergências de data/valor e provas unilaterais falam dos mesmos documentos — devem ser 1 tópico só.
+        <div class="right">✅ Título: "Das divergências dos documentos e das provas unilaterais juntadas"<br>Estrutura interna: primeiro as divergências, depois finalizar com a unilateralidade.</div>
+      </div>
+    </div>
+
+    <div class="error-card info">
+      <div class="error-num">Erro 7 — Súmula 385</div>
+      <div class="error-title">Tópico da Súmula 385 desnecessário em apelação contra banco</div>
+      <div class="error-body">
+        Súmula 385 STJ é relevante em processos contra ÓRGÃOS ARQUIVISTAS (Serasa, Boa Vista, SPC).
+        Em apelação contra o <strong>banco</strong> pedindo reforma total, o desembargador analisa por conta própria.
+        Não precisa de tópico — desvia o foco dos argumentos de reforma.
+      </div>
+    </div>
+
+    <div class="error-card warning">
+      <div class="error-num">Erro 8 — Profundidade</div>
+      <div class="error-title">Parágrafos sucintos, sem profundidade argumentativa</div>
+      <div class="error-body">
+        Apelação precisa ser desenvolvida e aprofundada. Cada argumento deve ter fundamentação legal, contexto e jurisprudência.
+        Não é repetitivo — é elaborado. A parte contratual especialmente deve ser o tópico mais robusto.
+      </div>
+    </div>
+  </div>
+
+  <!-- Estrutura correta -->
+  <div class="section">
+    <div class="section-title">Estrutura Correta — Apelação de Crédito/Empréstimo sem Contrato</div>
+    <div class="structure-flow">
+      <div class="flow-item main">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-title">Da falta de contrato válido do Crédito 1 Minuto</div>
+          <div class="flow-desc">
+            a) Ausência de relação jurídica prévia — sem conta corrente comprovada, sem prova de que era cliente<br>
+            b) O comprovante não é contrato: sem cláusulas, sem assinatura, sem autenticação, gerado 2 anos depois<br>
+            c) Contradição processual: contestação diz presencial → comprovante diz não presencial → má-fé
+          </div>
+          <div class="flow-tag">🎯 TÓPICO MAIS ELABORADO — foco central da apelação</div>
+        </div>
+      </div>
+      <div class="flow-item secondary">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-title">Das divergências dos documentos e das provas unilaterais juntadas</div>
+          <div class="flow-desc">
+            Divergências de data/valor/canal → planilha interna sem validade jurídica → contrato de renegociação genérico (sem nome da autora)<br>
+            <strong>Sempre citar e rebater o fundamento da sentença dentro deste tópico.</strong>
+          </div>
+          <div class="flow-tag">⚠️ UM TÓPICO SÓ — divergências + provas unilaterais juntos</div>
+        </div>
+      </div>
+      <div class="flow-item tertiary">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-title">Do dano moral</div>
+          <div class="flow-desc">Sem subtópico específico de Súmula 385. O desembargador analisa as preexistentes por conta própria.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparativo -->
+  <div class="section">
+    <div class="section-title">Comparativo: OlivIA Gerou × Estrutura Correta</div>
+    <table class="vs-table">
+      <thead>
+        <tr><th>OlivIA gerou</th><th>Estrutura correta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="wrong-cell">Insuficiência probatória do comprovante unilateral (genérico)</td><td class="right-cell">Falta de contrato válido do Crédito 1 Minuto (específico + contradição presencial × digital)</td></tr>
+        <tr><td class="wrong-cell">Não mencionou ausência de conta corrente</td><td class="right-cell">Questionar: como contratar empréstimo sem ser correntista?</td></tr>
+        <tr><td class="wrong-cell">Não mencionou emissão do comprovante 2 anos depois</td><td class="right-cell">Comprovante de 06/06/2025 para operação de 03/05/2023 → suspeito</td></tr>
+        <tr><td class="wrong-cell">Não rebateu o fundamento da sentença (12 parcelas)</td><td class="right-cell">Rebater: planilha Excel interna sem valor jurídico não pode embasar sentença</td></tr>
+        <tr><td class="wrong-cell">Dano moral + Súmula 385 como tópico central</td><td class="right-cell">Dano moral simples, sem tópico de Súmula 385</td></tr>
+        <tr><td class="wrong-cell">Parágrafos curtos, argumentação superficial</td><td class="right-cell">Aprofundado, desenvolvido, todos os ângulos explorados</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Regras -->
+  <div class="section">
+    <div class="section-title">Regras Derivadas — Ativas Imediatamente</div>
+    <div class="rule-grid">
+      <div class="rule-box">
+        <h4>📋 Apelação ≠ Réplica</h4>
+        <p>Apelação rebate a <strong>sentença</strong>. Cada tópico começa referenciando o fundamento da sentença e demonstra por que está errado.</p>
+        <div class="quote">"A sentença entendeu que [X]. Contudo, [argumento de reforma]."</div>
+      </div>
+      <div class="rule-box">
+        <h4>📊 Planilha/tabela interna do banco</h4>
+        <p>Sem assinatura, sem comprovantes individuais, sem auditoria terceirizada = sem validade jurídica autônoma. Não pode embasar sentença.</p>
+      </div>
+      <div class="rule-box">
+        <h4>📄 Comprovante ≠ Contrato</h4>
+        <p>Comprovante sem cláusulas, sem assinatura, sem autenticação = não prova manifestação de vontade. Não é instrumento contratual.</p>
+      </div>
+      <div class="rule-box">
+        <h4>⚔️ Contradição nos docs → má-fé</h4>
+        <p>Quando contestação contradiz diretamente o documento juntado: incluir parágrafo ou tópico sobre comportamento contraditório/má-fé processual.</p>
+      </div>
+      <div class="rule-box">
+        <h4>📑 Súmula 385 em apelação</h4>
+        <ul>
+          <li>Contra órgão arquivista: mencionar e rebater</li>
+          <li>Contra banco (reforma total): NÃO fazer tópico</li>
+        </ul>
+      </div>
+      <div class="rule-box">
+        <h4>📁 Contrato de renegociação genérico</h4>
+        <p>Sem nome da parte autora = "documento genérico que não prova relação jurídica específica com a demandante."</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div>⚖️ OlivIA · Salvo em <code>/Users/olivia/olivia-vault/agente/treinamentos/heloisa-2026-04-14-apelacao-banrisul.md</code></div>
+  <div>14/04/2026 · Dra. Heloísa Miglioranza · Auto-aprovado</div>
+</div>
+
+</body>
+</html>
